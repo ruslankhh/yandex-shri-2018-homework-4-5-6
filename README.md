@@ -51,7 +51,6 @@
 - [ ] Сборка проекта
 - [ ] Контейнеризация приложения
 - [ ] Continuous Integration
-- [ ] CI + CD (advanced level)
 
 #### Проверка кода
 
@@ -99,6 +98,8 @@ npm run test
     - Поднятие стенда в Heroku на основе Docker-контейнера в staging-режиме (pipeline)
 
 ### Дополнительное
+
+- [ ] CI + CD (advanced level)
 
 #### CI + CD (advanced level)
 
