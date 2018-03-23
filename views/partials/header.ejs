@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title><%= (title ? title + ' | ' : '') + config.title %></title>
+  <link href="/styles/styles.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+  <header class="header">
+    <a class="header__title" href="/"><%= config.title %></a>
+    <nav class="header__nav">
+      <ul>
+        <% for (let i in config.menu) { %>
+          <li><a href="<%- config.menu[i].url %>"><%= config.menu[i].title %></a></li>
+        <% } %>
+      </ul>
+    </nav>
+  </header>
+  <main class="content">

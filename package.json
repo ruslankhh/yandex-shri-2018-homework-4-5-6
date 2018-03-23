@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./server/index.js",
+    "dev": "nodemon ./server/index.js"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
@@ -12,5 +13,9 @@
     "express": "~4.16.0",
     "http-errors": "~1.6.2",
     "morgan": "~1.9.0"
+  },
+  "devDependencies": {
+    "body-parser": "^1.18.2",
+    "nodemon": "^1.17.2"
   }
 }

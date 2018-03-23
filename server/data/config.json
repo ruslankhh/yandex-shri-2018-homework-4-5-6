@@ -1,0 +1,22 @@
+{
+  "lang": "ru",
+  "title": "Git Store",
+  "author": {
+    "name": "Руслан Хуснетдинов",
+    "url": "http://ruslankhh.com"
+  },
+  "menu": [
+    {
+      "title": "Главная",
+      "url": "/"
+    },
+    {
+      "title": "Коммиты",
+      "url": "/commits"
+    },
+    {
+      "title": "Ветки",
+      "url": "/branches"
+    }
+  ]
+}
