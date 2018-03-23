@@ -3,18 +3,17 @@ const debug = require('debug')('yandex-shri-2018-homework-4-5-6:server');
 
 const app = require('./app');
 const normalizePort = require('./helpers/normalizePort');
+const config = require('./../app.json');
 
 // Get port from environment and store in Express.
-const PORT = normalizePort(process.env.PORT || '8080');
+const PORT = normalizePort(process.env.PORT || config.port);
 app.set('port', PORT);
 
 // Create HTTP server.
 const server = http.createServer(app);
 
 // Listen on provided port, on all network interfaces.
-server.listen(PORT, () => {
-  console.log(`Express app listening on port ${PORT}!`);
-});
+server.listen(PORT);
 
 server.on('error', (error) => {
   if (error.syscall !== 'listen') {

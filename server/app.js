@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
-const config = require('./data/config.json');
+const config = require('./../app.json');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');

@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "start": "node ./server/index.js",
-    "dev": "nodemon ./server/index.js"
+    "dev": "gulp"
   },
   "dependencies": {
+    "body-parser": "^1.18.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "ejs": "~2.5.7",
@@ -15,7 +16,8 @@
     "morgan": "~1.9.0"
   },
   "devDependencies": {
-    "body-parser": "^1.18.2",
-    "nodemon": "^1.17.2"
+    "browser-sync": "^2.23.6",
+    "gulp": "^4.0.0",
+    "gulp-nodemon": "^2.2.1"
   }
 }

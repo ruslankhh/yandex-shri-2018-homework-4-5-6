@@ -1,10 +1,12 @@
 {
-  "lang": "ru",
-  "title": "Git Store",
+  "name": "yandex-shri-2018-homework-4-5-6",
   "author": {
     "name": "Руслан Хуснетдинов",
     "url": "http://ruslankhh.com"
   },
+  "port": "8080",
+  "lang": "ru",
+  "title": "Git Store",
   "menu": [
     {
       "title": "Главная",
