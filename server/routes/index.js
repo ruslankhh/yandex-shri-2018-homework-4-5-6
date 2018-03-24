@@ -7,15 +7,14 @@ const config = require('./../../app.json');
 
 const router = express.Router();
 
-// GET home page.
 router.get('/', (req, res, next) => {
   const title = config.menu && config.menu.length !== 0 ? config.menu[0].title : '';
   const branch = 'master';
   const pathname = '';
-  const lsPath = pathname || '.';
+  const filepath = pathname || '.';
   const cwd = config.repositoryDiractory;
 
-  git(`ls-tree -r -t ${branch} ${lsPath}`, { cwd })
+  git(`ls-tree -r -t ${branch} ${filepath}`, { cwd })
     .then(data => {
       const files = parseFileList(data).filter(file => pathname === file.dir);
       const tree = { children: files };
