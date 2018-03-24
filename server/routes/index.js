@@ -9,7 +9,7 @@ const router = express.Router();
 
 // GET home page.
 router.get('/', (req, res, next) => {
-  const title = config.menu && config.menu.length !== 0 ? config.menu : '';
+  const title = config.menu && config.menu.length !== 0 ? config.menu[0].title : '';
   const branch = 'master';
   const pathname = '';
   const lsPath = pathname || '.';
