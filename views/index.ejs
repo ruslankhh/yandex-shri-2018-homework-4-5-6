@@ -1,3 +1,11 @@
 <% include ./partials/header %>
-  <%- body %>
+  <ul>
+    <% tree.children.forEach(file => { %>
+      <li>
+        <a href="/tree/<%= `${branch}/${file.filepath}` %>">
+          <%= file.base %>
+        </a>
+      </li>
+    <% }); %>
+  </ul>
 <% include ./partials/footer %>

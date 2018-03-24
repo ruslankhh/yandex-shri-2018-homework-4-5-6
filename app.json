@@ -5,6 +5,7 @@
     "url": "http://ruslankhh.com"
   },
   "port": "8080",
+  "repositoryDirectory": ".",
   "lang": "ru",
   "title": "Git Store",
   "menu": [
