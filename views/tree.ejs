@@ -1,0 +1,16 @@
+<% include ./partials/header %>
+  <ul>
+    <% if (tree.parent) { %>
+      <li>
+        <a href="/tree/<%= `${branch}/${tree.parent.filepath}` %>">..</a>
+      </li>
+    <% } %>
+    <% tree.children.forEach(file => { %>
+      <li>
+        <a href="/tree/<%= `${branch}/${file.filepath}` %>">
+          <%= file.base %>
+        </a>
+      </li>
+    <% }); %>
+  </ul>
+<% include ./partials/footer %>

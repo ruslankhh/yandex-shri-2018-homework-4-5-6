@@ -15,29 +15,26 @@ router.get(/^\/(\w+)\/?([\w/]+?)?$/, (req, res, next) => {
 
   git(`ls-tree -r -t ${branch} ${filepath}`, { cwd })
     .then(data => {
-      let children = [];
       const files = parseFileList(data);
+      const children = files.filter(file => pathname === file.dir);
+      let parent = null;
+
       const pathnameArr = pathname.split('/').filter(s => !!s);
 
       switch (pathnameArr.length) {
-        case 0:
-          children = [];
-          break;
         case 1:
-          children = [ { filepath: '', base: '..' } ];
+          parent = { filepath: '' };
           break;
         default:
           const parentDirName = pathnameArr[pathnameArr.length - 2];
-          const parentDir = files.find(file => file.name === parentDirName);
-          children = [ { ...parentDir, base: '..' } ];
+
+          parent = files.find(file => file.name === parentDirName);
           break;
       }
 
-      const tree = {
-        children: [ ...children, ...files.filter(file => pathname === file.dir) ]
-      };
+      const tree = { parent, children };
 
-      res.render('index', { title, branch, tree });
+      res.render('tree', { title, branch, tree });
     });
 });
 
