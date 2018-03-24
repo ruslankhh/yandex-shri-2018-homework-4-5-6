@@ -16,11 +16,18 @@ router.get('/', (req, res, next) => {
 
   git(`ls-tree -r -t ${branch} ${filepath}`, { cwd })
     .then(data => {
+      if (!data) {
+        next();
+
+        return;
+      }
+
       const files = parseFileList(data).filter(file => pathname === file.dir);
       const tree = { children: files };
 
       res.render('index', { title, branch, tree });
-    });
+    })
+    .catch(next);
 });
 
 module.exports = router;

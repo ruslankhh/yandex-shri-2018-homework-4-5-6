@@ -2,7 +2,7 @@
   <ul>
     <% if (tree.parent) { %>
       <li>
-        <a href="/tree/<%= `${branch}/${tree.parent.filepath}` %>">..</a>
+        <a href="/tree/<%= [branch, tree.parent.filepath].filter(s => !!s).join('/') %>">..</a>
       </li>
     <% } %>
     <% tree.children.forEach(file => { %>
