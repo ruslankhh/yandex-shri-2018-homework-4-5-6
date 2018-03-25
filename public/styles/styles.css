@@ -186,9 +186,21 @@ pre code {
   color: #666;
 }
 
-.breadcrumbs__item:not(:last-child)::after {
+.branch {
+  margin-right: 0.5em;
+}
+
+.branch__select {
+  min-width: 100px;
+}
+
+.breadcrumbs__item::after {
   display: inline-block;
   content: '/';
+}
+
+.breadcrumbs__item--close::after {
+  display: none;
 }
 
 .breadcrumbs__item:first-child a,

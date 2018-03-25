@@ -1,9 +1,9 @@
+const _ = require('lodash');
 const path = require('path');
 const express = require('express');
-
 const git = require('./../helpers/git');
 const parseFileList = require('./../helpers/parseFileList');
-
+const parseBranchList = require('./../helpers/parseBranchList');
 const config = require('./../../app.json');
 
 const router = express.Router();
@@ -20,18 +20,22 @@ router.get(/^\/(\w+)\/?(.*?)?$/, (req, res, next) => {
   const filepath = path.normalize(pathname);
   const cwd = config.repositoryDiractory;
 
-  git(`ls-tree -r -t ${branch} ${filepath}`, { cwd })
+  Promise.all([
+    git(`ls-tree -r -t ${branch} ${filepath}`, { cwd }),
+    git('branch', { cwd })
+  ])
     .then(data => {
-      if (!data) {
+      if (!data[0]) {
         next();
 
         return;
       }
 
       const root = { filepath: '', type: 'tree', base: config.name, level: -1 };
-      const files = [ root, ...parseFileList(data) ];
+      const files = [ root, ...parseFileList(data[0]) ];
       const file = files.filter(file => pathname === file.filepath)[0];
       const parents = files.filter(file => file.level < level);
+      const branches = _.uniq([branch, ...parseBranchList(data[1])]);
       const breadcrumbs = parents.length > 4
         ? [...parents.slice(0, 2), ...parents.slice(-2)]
         : parents;
@@ -42,7 +46,7 @@ router.get(/^\/(\w+)\/?(.*?)?$/, (req, res, next) => {
       const tree = { parent, children };
 
       if (file && file.type === 'tree') {
-        res.render('tree', { title, branch, tree, breadcrumbs });
+        res.render('tree', { title, branches, breadcrumbs, branch, tree });
       } else {
         next();
       }

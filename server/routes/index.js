@@ -1,9 +1,7 @@
 const path = require('path');
 const express = require('express');
-
 const git = require('./../helpers/git');
 const parseFileList = require('./../helpers/parseFileList');
-
 const config = require('./../../app.json');
 
 const router = express.Router();
@@ -11,12 +9,14 @@ const router = express.Router();
 router.get('/', (req, res, next) => {
   const branch = config.defaultBranch;
   const pathname = '';
-
   const title = config.menu && config.menu.length !== 0 ? config.menu[0].title : '';
   const filepath = path.normalize(pathname);
   const cwd = config.repositoryDiractory;
 
-  git(`ls-tree -r -t ${branch} ${filepath}`, { cwd })
+  Promise.all([
+    git(`ls-tree -r -t ${branch} ${filepath}`, { cwd }),
+    git('branch', { cwd })
+  ])
     .then(data => {
       if (!data) {
         next();
@@ -25,11 +25,13 @@ router.get('/', (req, res, next) => {
       }
 
       const root = { filepath: '', type: 'tree', base: config.name, level: -1 };
-      const files = parseFileList(data).filter(file => pathname === file.dir);
+      const files = parseFileList(data[0]);
       const breadcrumbs = [root];
-      const tree = { children: files };
+      const branches = [branch];
+      const children = files.filter(file => pathname === file.dir);
+      const tree = { children };
 
-      res.render('index', { title, branch, tree, breadcrumbs });
+      res.render('index', { title, branches, breadcrumbs, branch, tree });
     })
     .catch(next);
 });

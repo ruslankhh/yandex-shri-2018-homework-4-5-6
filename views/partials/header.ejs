@@ -18,16 +18,27 @@
       </ul>
     </nav>
     <% if (!error) { %>
-      <nav class="breadcrumbs">
-        <% breadcrumbs.forEach((file, i) => { %>
-          <span class="breadcrumbs__item">
-            <% if (i < breadcrumbs.length - 1) { %>
-              <a href="/<%= `${file.type}/${branch}/${file.filepath}` %>"><%= file.base %></a>
-            <% } else { %>
-              <span><%= file.base %></span>
-            <% } %>
-          </span>
-        <% }) %>
+      <nav class="header__nav-tree">
+        <span class="branch">
+          <select class="branch__select" name="branch__select">
+            <% branches.forEach((value, i) => { %>
+              <option value="<%= value %>" <%= value === branch ? 'selected' : '' %>>
+                <%= value %>
+              </option> 
+            <% }); %>
+          </select>
+        </span>
+        <span class="breadcrumbs">
+          <% breadcrumbs.forEach((file, i) => { %>
+            <span class="breadcrumbs__item <%= file.type === 'blob' ? 'breadcrumbs__item--close' : '' %>">
+              <% if (i < breadcrumbs.length - 1) { %>
+                <a href="/<%= `${file.type}/${branch}/${file.filepath}` %>"><%= file.base %></a>
+              <% } else { %>
+                <span><%= file.base %></span>
+              <% } %>
+            </span>
+          <% }) %>
+        </span>
       </nav>
     <% } %>
   </header>
