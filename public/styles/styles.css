@@ -147,7 +147,7 @@ pre code {
 .header {
   max-width: 57rem;
   width: 100%;
-  margin: 0 auto 1rem;
+  margin: 0 auto -0.5em;
   padding: 0 1rem;
 }
 
@@ -187,11 +187,17 @@ pre code {
 }
 
 .branch {
+  display: inline-block;
   margin-right: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 .branch__select {
   min-width: 100px;
+}
+
+.breadcrumbs {
+  display: inline-block;
 }
 
 .breadcrumbs__item::after {
