@@ -1,7 +1,8 @@
 const objectSelect = document.getElementsByClassName('branch__select')[0];
-const oldObject = objectSelect.value;
 
 if (objectSelect) {
+  const oldObject = objectSelect.value;
+
   objectSelect.addEventListener('change', (e) => {
     const newObject = objectSelect.value;
     const { pathname } = window.location;
