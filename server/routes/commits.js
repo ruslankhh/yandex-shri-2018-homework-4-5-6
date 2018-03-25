@@ -2,6 +2,7 @@ const _ = require('lodash');
 const path = require('path');
 const express = require('express');
 const git = require('./../helpers/git');
+const mapLinks = require('./../helpers/mapLinks');
 const parseFileList = require('./../helpers/parseFileList');
 const parseBranchList = require('./../helpers/parseBranchList');
 const parseCommitList = require('./../helpers/parseCommitList');
@@ -35,14 +36,15 @@ router.get(/^\/((\w+)\/?(.*?)?$)?/, (req, res, next) => {
       const root = { filepath: '', type: 'tree', base: config.name, level: -1 };
       const files = [root, ...parseFileList(data[0])];
       const file = files.filter(file => file.filepath === pathname)[0];
-      const parents = files.filter(file => file.level < level);
-      const branches = _.uniq([object, ...parseBranchList(data[1])]);
-      const breadcrumbs = parents.map(item => ({ ...item, type: 'commits' }));
-
-      const commits = parseCommitList(data[2]);
 
       if (file) {
-        res.render('commits', { title, branches, breadcrumbs, object, commits, file });
+        const parents = files.filter(file => file.level < level);
+        const branches = _.uniq([object, ...parseBranchList(data[1])]);
+        const breadcrumbs = parents.map(item => ({ ...item, type: 'commits' }));
+        const links = mapLinks(config.menu, object, file);
+        const commits = parseCommitList(data[2]);
+
+        res.render('commits', { title, links, branches, breadcrumbs, object, commits, file });
       } else {
         next();
       }

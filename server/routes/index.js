@@ -29,11 +29,12 @@ router.get('/', (req, res, next) => {
       const root = { filepath: '', type: 'tree', base: config.name, level: -1 };
       const files = parseFileList(data[0]);
       const breadcrumbs = [root];
+      const links = config.menu;
       const branches = _.uniq([object, ...parseBranchList(data[1])]);
       const children = files.filter(file => pathname === file.dir);
       const tree = { children };
 
-      res.render('index', { title, branches, breadcrumbs, object, tree });
+      res.render('index', { title, links, branches, breadcrumbs, object, tree });
     })
     .catch(next);
 });

@@ -3,7 +3,7 @@
     <% commits.forEach(commit => { %>
       <li class="commit-item">
         <span class="commit-item__hash"><%= commit.shortHash %></span>
-        <a class="commit-item__link" href="/<%= `${file.type}/${commit.shortHash}/${file.filepath}` %>">
+        <a class="commit-item__link" href="/<%= [file.type, commit.shortHash,file.filepath].filter(s => !!s).join('/'); %>">
           <span><%= commit.message %></span>
         </a>
       </li>

@@ -26,6 +26,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 app.locals = {
   config,
   title: '',
+  links: config.menu || [],
   body: '',
   error: false,
   nav: { branches: true, breadcrumbs: true }

@@ -2,6 +2,7 @@ const _ = require('lodash');
 const path = require('path');
 const express = require('express');
 const git = require('./../helpers/git');
+const mapLinks = require('./../helpers/mapLinks');
 const parseFileList = require('./../helpers/parseFileList');
 const parseBranchList = require('./../helpers/parseBranchList');
 const config = require('./../../app.json');
@@ -35,15 +36,17 @@ router.get(/^\/((\w+)\/?(.*?)?$)?/, (req, res, next) => {
       const file = files.filter(file =>
         file.type === 'blob' && file.filepath === pathname
       )[0];
-      const parents = files.filter(file => file.level < level);
-      const branches = _.uniq([object, ...parseBranchList(data[1])]);
-      const breadcrumbs = parents;
 
       if (file) {
+        const parents = files.filter(file => file.level < level);
+        const branches = _.uniq([object, ...parseBranchList(data[1])]);
+        const breadcrumbs = parents;
+        const links = mapLinks(config.menu, object, file);
+
         git(`cat-file ${file.type} ${file.hash}`, { cwd })
           .then(data => {
             file.content = data;
-            res.render('blob', { title, branches, breadcrumbs, object, file });
+            res.render('blob', { title, links, branches, breadcrumbs, object, file });
           })
           .catch(next);
       } else {

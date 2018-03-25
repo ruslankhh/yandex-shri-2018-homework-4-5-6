@@ -25,8 +25,9 @@ router.get('/*', (req, res, next) => {
       const parents = [root];
       const branches = _.uniq([object, ...parseBranchList(data)]);
       const breadcrumbs = parents;
+      const links = config.menu;
 
-      res.render('branches', { title, branches, breadcrumbs, object });
+      res.render('branches', { title, links, branches, breadcrumbs, object });
     })
     .catch(next);
 });

@@ -12,11 +12,13 @@
     <a class="header__title" href="/"><%= config.title %></a>
     <nav class="header__nav">
       <ul>
-        <% for (let i in config.menu) { %>
+        <% links.forEach(link => { %>
           <li class="nav-item">
-            <a class="nav-item__link" href="<%- config.menu[i].url %>"><%= config.menu[i].title %></a>
+            <a class="nav-item__link" href="<%= link.url %>">
+              <%= link.title %>
+            </a>
           </li>
-        <% } %>
+        <% }); %>
       </ul>
     </nav>
     <% if (!error) { %>
@@ -35,7 +37,7 @@
         <% if (nav.breadcrumbs) { %>
           <span class="breadcrumbs">
             <% breadcrumbs.forEach((item, i) => { %>
-              <span class="breadcrumbs__item <%= item.type === 'blob' ? 'breadcrumbs__item--close' : '' %>">
+              <span class="breadcrumbs__item <%= item.isBlob ? 'breadcrumbs__item--close' : '' %>">
                 <% if (i < breadcrumbs.length - 1) { %>
                   <a href="/<%= `${item.type}/${object}/${item.filepath}` %>"><%= item.base %></a>
                 <% } else { %>
