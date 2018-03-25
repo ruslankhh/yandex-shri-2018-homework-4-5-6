@@ -35,9 +35,7 @@ router.get(/^\/((\w+)\/?(.*?)?$)?/, (req, res, next) => {
       const file = files.filter(file => pathname === file.filepath)[0];
       const parents = files.filter(file => file.level < level);
       const branches = _.uniq([branch, ...parseBranchList(data[1])]);
-      const breadcrumbs = parents.length > 4
-        ? [...parents.slice(0, 2), ...parents.slice(-2)]
-        : parents;
+      const breadcrumbs = parents;
       const children = files.filter(file => pathname === file.dir);
       const parent = level > 0
         ? files.find(file => file.name === pathnameArr[pathnameArr.length - 2])

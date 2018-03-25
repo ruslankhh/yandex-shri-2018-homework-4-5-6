@@ -37,9 +37,10 @@ router.get(/^\/((\w+)\/?(.*?)?$)?/, (req, res, next) => {
       const file = files[files.length - 1];
       const parents = files.filter(file => file.level < level);
       const branches = _.uniq([branch, ...parseBranchList(data[1])]);
-      const breadcrumbs = parents.length > 4
-        ? [...parents.slice(0, 2), ...parents.slice(-2)]
-        : parents;
+      const breadcrumbs = parents.map(item => {
+        item.type = 'commits';
+        return item;
+      });
 
       const commits = parseCommitList(data[2]);
 

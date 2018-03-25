@@ -29,12 +29,12 @@
           </select>
         </span>
         <span class="breadcrumbs">
-          <% breadcrumbs.forEach((file, i) => { %>
-            <span class="breadcrumbs__item <%= file.type === 'blob' ? 'breadcrumbs__item--close' : '' %>">
+          <% breadcrumbs.forEach((item, i) => { %>
+            <span class="breadcrumbs__item <%= item.type === 'blob' ? 'breadcrumbs__item--close' : '' %>">
               <% if (i < breadcrumbs.length - 1) { %>
-                <a href="/<%= `${file.type}/${branch}/${file.filepath}` %>"><%= file.base %></a>
+                <a href="/<%= `${item.type}/${branch}/${item.filepath}` %>"><%= item.base %></a>
               <% } else { %>
-                <span><%= file.base %></span>
+                <span><%= item.base %></span>
               <% } %>
             </span>
           <% }) %>
