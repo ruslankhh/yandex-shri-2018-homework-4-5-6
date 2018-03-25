@@ -145,15 +145,10 @@ pre code {
 }
 
 .header {
-  font-size: 14px;
   max-width: 57rem;
   width: 100%;
-  margin: 0 auto 3rem;
+  margin: 0 auto 1rem;
   padding: 0 1rem;
-}
-
-.header a {
-  color: inherit;
 }
 
 .header__title {
@@ -165,6 +160,11 @@ pre code {
 .header__title,
 .header__title:hover {
   text-decoration: none;
+}
+
+.header__nav {
+  font-size: 14px;
+  margin-bottom: 2rem;
 }
 
 .header__nav ul {
@@ -184,6 +184,16 @@ pre code {
 
 .header__nav a {
   color: #666;
+}
+
+.breadcrumbs__item:not(:last-child)::after {
+  display: inline-block;
+  content: '/';
+}
+
+.breadcrumbs__item:first-child a,
+.breadcrumbs__item:last-child span {
+  font-weight: bold;
 }
 
 .content {

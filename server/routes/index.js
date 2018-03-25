@@ -24,10 +24,12 @@ router.get('/', (req, res, next) => {
         return;
       }
 
+      const root = { filepath: '', type: 'tree', base: config.name, level: -1 };
       const files = parseFileList(data).filter(file => pathname === file.dir);
+      const breadcrumbs = [root];
       const tree = { children: files };
 
-      res.render('index', { title, branch, tree });
+      res.render('index', { title, branch, tree, breadcrumbs });
     })
     .catch(next);
 });

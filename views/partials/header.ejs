@@ -17,5 +17,18 @@
         <% } %>
       </ul>
     </nav>
+    <% if (!error) { %>
+      <nav class="breadcrumbs">
+        <% breadcrumbs.forEach((file, i) => { %>
+          <span class="breadcrumbs__item">
+            <% if (i < breadcrumbs.length - 1) { %>
+              <a href="/<%= `${file.type}/${branch}/${file.filepath}` %>"><%= file.base %></a>
+            <% } else { %>
+              <span><%= file.base %></span>
+            <% } %>
+          </span>
+        <% }) %>
+      </nav>
+    <% } %>
   </header>
   <main class="content">

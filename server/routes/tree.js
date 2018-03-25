@@ -28,9 +28,13 @@ router.get(/^\/(\w+)\/?(.*?)?$/, (req, res, next) => {
         return;
       }
 
-      const root = { filepath: '', type: 'tree' };
+      const root = { filepath: '', type: 'tree', base: config.name, level: -1 };
       const files = [ root, ...parseFileList(data) ];
       const file = files.filter(file => pathname === file.filepath)[0];
+      const parents = files.filter(file => file.level < level);
+      const breadcrumbs = parents.length > 4
+        ? [...parents.slice(0, 2), ...parents.slice(-2)]
+        : parents;
       const children = files.filter(file => pathname === file.dir);
       const parent = level > 0
         ? files.find(file => file.name === pathnameArr[pathnameArr.length - 2])
@@ -38,7 +42,7 @@ router.get(/^\/(\w+)\/?(.*?)?$/, (req, res, next) => {
       const tree = { parent, children };
 
       if (file && file.type === 'tree') {
-        res.render('tree', { title, branch, tree });
+        res.render('tree', { title, branch, tree, breadcrumbs });
       } else {
         next();
       }
