@@ -7,7 +7,7 @@
     <% } %>
     <% tree.children.forEach(file => { %>
       <li>
-        <a href="/tree/<%= `${branch}/${file.filepath}` %>">
+        <a href="/<%= `${file.type}/${branch}/${file.filepath}` %>">
           <%= file.base %>
         </a>
       </li>

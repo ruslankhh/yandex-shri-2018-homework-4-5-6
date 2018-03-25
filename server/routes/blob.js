@@ -14,7 +14,6 @@ router.get(/^\/(\w+)\/?(.*?)?$/, (req, res, next) => {
     ? req.params[1].split('/').filter(s => !!s)
     : [];
   const pathname = pathnameArr.join('/');
-  const level = pathnameArr.length;
 
   const title = `${branch}/${pathname}`;
   const filepath = path.normalize(pathname);
@@ -31,14 +30,13 @@ router.get(/^\/(\w+)\/?(.*?)?$/, (req, res, next) => {
       const root = { filepath: '', type: 'tree' };
       const files = [ root, ...parseFileList(data) ];
       const file = files.filter(file => pathname === file.filepath)[0];
-      const children = files.filter(file => pathname === file.dir);
-      const parent = level > 0
-        ? files.find(file => file.name === pathnameArr[pathnameArr.length - 2])
-        : null;
-      const tree = { parent, children };
 
-      if (file && file.type === 'tree') {
-        res.render('tree', { title, branch, tree });
+      if (file) {
+        git(`cat-file ${file.type} ${file.hash}`, { cwd })
+          .then(data => {
+            file.content = data;
+            res.render('blob', { title, branch, file });
+          });
       } else {
         next();
       }

@@ -10,6 +10,7 @@ const config = require('./../app.json');
 
 const indexRouter = require('./routes/index');
 const treeRouter = require('./routes/tree');
+const blobRouter = require('./routes/blob');
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.locals = { config, title: '', body: '' };
 
 app.use('/', indexRouter);
 app.use('/tree', treeRouter);
+app.use('/blob', blobRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
