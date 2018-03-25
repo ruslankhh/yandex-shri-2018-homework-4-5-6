@@ -9,14 +9,14 @@ const config = require('./../../app.json');
 const router = express.Router();
 
 router.get('/', (req, res, next) => {
-  const branch = config.defaultBranch;
+  const object = config.defaultBranch;
   const pathname = '';
   const title = config.menu && config.menu.length !== 0 ? config.menu[0].title : '';
   const filepath = path.normalize(pathname);
   const cwd = config.repositoryDiractory;
 
   Promise.all([
-    git(`ls-tree -r -t ${branch} ${filepath}`, { cwd }),
+    git(`ls-tree -r -t ${object} ${filepath}`, { cwd }),
     git('branch', { cwd })
   ])
     .then(data => {
@@ -29,11 +29,11 @@ router.get('/', (req, res, next) => {
       const root = { filepath: '', type: 'tree', base: config.name, level: -1 };
       const files = parseFileList(data[0]);
       const breadcrumbs = [root];
-      const branches = _.uniq([branch, ...parseBranchList(data[1])]);
+      const branches = _.uniq([object, ...parseBranchList(data[1])]);
       const children = files.filter(file => pathname === file.dir);
       const tree = { children };
 
-      res.render('index', { title, branches, breadcrumbs, branch, tree });
+      res.render('index', { title, branches, breadcrumbs, object, tree });
     })
     .catch(next);
 });

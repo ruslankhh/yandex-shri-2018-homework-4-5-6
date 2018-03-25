@@ -22,7 +22,7 @@
         <span class="branch">
           <select class="branch__select" name="branch__select">
             <% branches.forEach((value, i) => { %>
-              <option value="<%= value %>" <%= value === branch ? 'selected' : '' %>>
+              <option value="<%= value %>" <%= value === object ? 'selected' : '' %>>
                 <%= value %>
               </option> 
             <% }); %>
@@ -32,7 +32,7 @@
           <% breadcrumbs.forEach((item, i) => { %>
             <span class="breadcrumbs__item <%= item.type === 'blob' ? 'breadcrumbs__item--close' : '' %>">
               <% if (i < breadcrumbs.length - 1) { %>
-                <a href="/<%= `${item.type}/${branch}/${item.filepath}` %>"><%= item.base %></a>
+                <a href="/<%= `${item.type}/${object}/${item.filepath}` %>"><%= item.base %></a>
               <% } else { %>
                 <span><%= item.base %></span>
               <% } %>
