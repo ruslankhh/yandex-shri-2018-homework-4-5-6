@@ -213,8 +213,7 @@ pre code {
 }
 
 a.nav-item__link--active {
-  font-weight: bold;
-  text-decoration: none;
+  text-decoration: underline;
   color: inherit;
   cursor: default;
   pointer-events: none;
