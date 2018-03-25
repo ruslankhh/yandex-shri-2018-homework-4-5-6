@@ -1,5 +1,5 @@
 const parseCommitList = (value) => {
-  const regexp = /commit\s(.*?)\nAuthor:\s(.*?)\s<(.*?)>\nDate:\s+(.*?)\n\n\s+(.*?)\n/ig;
+  const regexp = /commit\s(.*?)\nAuthor:\s(.*?)\s<(.*?)>\nDate:\s+(.*?)\n\n\s+(.*)/ig;
   const str = value.toString().trim();
   let commitsMatch = [];
   let result;
