@@ -8,14 +8,13 @@ const config = require('./../../app.json');
 
 const router = express.Router();
 
-router.get(/^\/(\w+)\/?(.*?)?$/, (req, res, next) => {
-  const branch = req.params[0];
-  const pathnameArr = req.params[1]
-    ? req.params[1].split('/').filter(s => !!s)
+router.get(/^\/((\w+)\/?(.*?)?$)?/, (req, res, next) => {
+  const branch = req.params[1] || config.defaultBranch || 'master';
+  const pathnameArr = req.params[2]
+    ? req.params[2].split('/').filter(s => !!s)
     : [];
   const pathname = pathnameArr.join('/');
   const level = pathnameArr.length;
-
   const title = `${branch}/${pathname}`;
   const filepath = path.normalize(pathname);
   const cwd = config.repositoryDiractory;
