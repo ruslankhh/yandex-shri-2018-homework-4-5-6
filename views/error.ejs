@@ -1,5 +1,5 @@
 <% include ./partials/header %>
-  <h1><%= message %></h1>
-  <p><%= error.status %></p>
+  <h1><%= error.status ? message : 'Error' %></h1>
+  <p><%= error.status ? error.status : message %></p>
   <pre><%= error.stack %></pre>
 <% include ./partials/footer %>
