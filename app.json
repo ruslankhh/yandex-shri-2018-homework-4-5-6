@@ -6,7 +6,7 @@
   },
   "host": "localhost",
   "port": "8080",
-  "repositoryDirectory": "./../yandex-shri-2018-homework-3",
+  "repositoryDirectory": ".",
   "defaultBranch": "master",
   "lang": "ru",
   "title": "Git Store",
