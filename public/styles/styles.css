@@ -101,6 +101,11 @@ ol ol {
   margin-bottom: 0;
 }
 
+ul,
+ol {
+  padding-left: 30px;
+}
+
 dt {
   font-weight: bold;
 }
@@ -219,6 +224,18 @@ pre code {
   line-height: 1.5;
   margin: 0 auto;
   padding: 0 1rem;
+}
+
+.commit-item__hash {
+  font-family: Menlo, Monaco, "Courier New", monospace;
+  font-size: 14px;
+  display: inline-block;
+  min-width: 72px;
+  margin-right: 0.5em;
+}
+
+.commit-item__link {
+  display: inline-block;
 }
 
 .footer {

@@ -15,7 +15,7 @@ router.get(/^\/((\w+)\/?(.*?)?$)?/, (req, res, next) => {
     : [];
   const pathname = pathnameArr.join('/');
   const level = pathnameArr.length;
-  const title = `${branch}/${pathname}`;
+  const title = [branch, pathname].filter(s => !!s).join('/');
   const filepath = path.normalize(pathname);
   const cwd = config.repositoryDiractory;
 

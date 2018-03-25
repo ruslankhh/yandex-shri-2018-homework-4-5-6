@@ -1,10 +1,11 @@
 <% include ./partials/header %>
   <ul>
     <% commits.forEach(commit => { %>
-      <li>
-        <span>
-          <%= commit.message %>
-        </span>
+      <li class="commit-item">
+        <span class="commit-item__hash"><%= commit.shortHash %></span>
+        <a class="commit-item__link" href="/<%= `${file.type}/${commit.shortHash}/${file.filepath}` %>">
+          <span><%= commit.message %></span>
+        </a>
       </li>
     <% }); %>
   </ul>

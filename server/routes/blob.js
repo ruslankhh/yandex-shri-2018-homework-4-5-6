@@ -15,7 +15,7 @@ router.get(/^\/((\w+)\/?(.*?)?$)?/, (req, res, next) => {
     : [];
   const pathname = pathnameArr.join('/');
   const level = pathnameArr.length;
-  const title = `${branch}/${pathname}`;
+  const title = [branch, pathname].filter(s => !!s).join('/');
   const filepath = path.normalize(pathname);
   const cwd = config.repositoryDiractory;
 
@@ -32,7 +32,9 @@ router.get(/^\/((\w+)\/?(.*?)?$)?/, (req, res, next) => {
 
       const root = { filepath: '', type: 'tree', base: config.name, level: -1 };
       const files = [root, ...parseFileList(data[0])];
-      const file = files[files.length - 1];
+      const file = files.filter(file =>
+        file.type === 'blob' && file.filepath === pathname
+      )[0];
       const parents = files.filter(file => file.level < level);
       const branches = _.uniq([branch, ...parseBranchList(data[1])]);
       const breadcrumbs = parents;

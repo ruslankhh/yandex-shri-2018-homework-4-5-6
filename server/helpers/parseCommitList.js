@@ -13,8 +13,9 @@ const parseCommitList = (value) => {
 
   const commits = commitsMatch.map(arr => {
     const [hash, name, email, date, message] = arr;
+    const shortHash = hash.slice(0, 8);
 
-    return { hash, author: { name, email }, date, message };
+    return { hash, shortHash, author: { name, email }, date, message };
   });
 
   return commits;
