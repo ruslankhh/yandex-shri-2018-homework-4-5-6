@@ -9,7 +9,7 @@ const config = require('./../../app.json');
 const router = express.Router();
 
 router.get('/', (req, res, next) => {
-  const branch = 'master';
+  const branch = config.defaultBranch;
   const pathname = '';
 
   const title = config.menu && config.menu.length !== 0 ? config.menu[0].title : '';

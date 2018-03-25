@@ -6,6 +6,7 @@
   },
   "port": "8080",
   "repositoryDirectory": ".",
+  "defaultBranch": "master",
   "lang": "ru",
   "title": "Git Store",
   "menu": [
