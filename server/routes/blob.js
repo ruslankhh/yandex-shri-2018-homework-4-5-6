@@ -9,7 +9,7 @@ const config = require('./../../app.json');
 
 const router = express.Router();
 
-router.get(/^\/((\w+)\/?(.*?)?$)?/, (req, res, next) => {
+router.get(/^\/(([\w-]+)\/?(.*?)?$)?/, (req, res, next) => {
   const object = req.params[1] || config.defaultBranch || 'master';
   const pathnameArr = req.params[2]
     ? req.params[2].split('/').filter(s => !!s)
@@ -18,11 +18,12 @@ router.get(/^\/((\w+)\/?(.*?)?$)?/, (req, res, next) => {
   const level = pathnameArr.length;
   const title = [object, pathname].filter(s => !!s).join('/');
   const filepath = path.normalize(pathname);
-  const cwd = config.repositoryDiractory;
+  const cwd = config.repositoryDirectory;
 
   Promise.all([
-    git(`ls-tree -r -t ${object} ${filepath}`, { cwd }),
-    git('branch', { cwd })
+    git(`ls-tree -r -t ${object.replace('--', '/')} ${filepath}`, { cwd }),
+    git('branch', { cwd }),
+    git('rev-parse --show-toplevel', { cwd })
   ])
     .then(data => {
       if (!data[0]) {
@@ -31,7 +32,8 @@ router.get(/^\/((\w+)\/?(.*?)?$)?/, (req, res, next) => {
         return;
       }
 
-      const root = { filepath: '', type: 'tree', base: config.name, level: -1 };
+      const base = path.parse(data[2]).base;
+      const root = { filepath: '', type: 'tree', base, level: -1 };
       const files = [root, ...parseFileList(data[0])];
       const file = files.filter(file =>
         file.type === 'blob' && file.filepath === pathname

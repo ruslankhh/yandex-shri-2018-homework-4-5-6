@@ -1,4 +1,5 @@
 const _ = require('lodash');
+const path = require('path');
 const express = require('express');
 const git = require('./../helpers/git');
 const parseBranchList = require('./../helpers/parseBranchList');
@@ -9,11 +10,14 @@ const router = express.Router();
 router.get('/*', (req, res, next) => {
   const object = config.defaultBranch || 'master';
   const title = config.menu[2].title;
-  const cwd = config.repositoryDiractory;
+  const cwd = config.repositoryDirectory;
 
   res.locals.nav = { branches: false, breadcrumbs: true };
 
-  git('branch', { cwd })
+  Promise.all([
+    git('branch', { cwd }),
+    git('rev-parse --show-toplevel', { cwd })
+  ])
     .then(data => {
       if (!data) {
         next();
@@ -21,7 +25,8 @@ router.get('/*', (req, res, next) => {
         return;
       }
 
-      const root = { filepath: '', type: 'tree', base: config.name, level: -1 };
+      const base = path.parse(data[1]).base;
+      const root = { filepath: '', type: 'tree', base, level: -1 };
       const parents = [root];
       const branches = _.uniq([object, ...parseBranchList(data)]);
       const breadcrumbs = parents;

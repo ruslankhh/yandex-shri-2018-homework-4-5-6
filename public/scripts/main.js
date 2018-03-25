@@ -1,6 +1,6 @@
 const { pathname } = window.location;
 const pathnameMatch = pathname
-  ? pathname.match(/^\/(\w+)\/?(\w+)?\/?(.*?)?$/)
+  ? pathname.match(/^\/([\w-]+)\/?([\w-]+)?\/?(.*?)?$/)
   : null;
 
 if (pathname.length > 1 && pathname[pathname.length - 1] === '/') {

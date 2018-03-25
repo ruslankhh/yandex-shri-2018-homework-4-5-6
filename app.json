@@ -4,8 +4,9 @@
     "name": "Руслан Хуснетдинов",
     "url": "http://ruslankhh.com"
   },
+  "host": "localhost",
   "port": "8080",
-  "repositoryDirectory": ".",
+  "repositoryDirectory": "./../yandex-shri-2018-homework-3",
   "defaultBranch": "master",
   "lang": "ru",
   "title": "Git Store",

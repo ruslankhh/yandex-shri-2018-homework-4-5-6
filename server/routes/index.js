@@ -13,11 +13,12 @@ router.get('/', (req, res, next) => {
   const pathname = '';
   const title = config.menu && config.menu.length !== 0 ? config.menu[0].title : '';
   const filepath = path.normalize(pathname);
-  const cwd = config.repositoryDiractory;
+  const cwd = config.repositoryDirectory;
 
   Promise.all([
-    git(`ls-tree -r -t ${object} ${filepath}`, { cwd }),
-    git('branch', { cwd })
+    git(`ls-tree -r -t ${object.replace('--', '/')} ${filepath}`, { cwd }),
+    git('branch', { cwd }),
+    git('rev-parse --show-toplevel', { cwd })
   ])
     .then(data => {
       if (!data) {
@@ -26,7 +27,8 @@ router.get('/', (req, res, next) => {
         return;
       }
 
-      const root = { filepath: '', type: 'tree', base: config.name, level: -1 };
+      const base = path.parse(data[2]).base;
+      const root = { filepath: '', type: 'tree', base, level: -1 };
       const files = parseFileList(data[0]);
       const breadcrumbs = [root];
       const links = config.menu;
