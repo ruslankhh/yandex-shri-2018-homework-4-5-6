@@ -1,0 +1,11 @@
+<% include ./partials/header %>
+  <ul>
+    <% branches.forEach(branch => { %>
+      <li class="branch-item">
+        <a class="branch-item__link" href="/tree/<%= branch %>">
+          <span><%= branch %></span>
+        </a>
+      </li>
+    <% }); %>
+  </ul>
+<% include ./partials/footer %>

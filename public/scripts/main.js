@@ -21,3 +21,15 @@ if (objectSelect) {
     }
   });
 }
+
+const navLinks = document.querySelectorAll('.nav-item__link');
+
+if (navLinks) {
+  const { pathname } = window.location;
+
+  navLinks.forEach(link => {
+    if (link.pathname === pathname) {
+      link.classList.add('nav-item__link--active');
+    }
+  });
+}

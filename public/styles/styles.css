@@ -93,17 +93,17 @@ abbr {
   border-bottom: 1px dotted;
 }
 
+ul,
+ol {
+  padding-left: 30px;
+}
+
 ul ul,
 ol ul,
 ul ol,
 ol ol {
   margin-top: 0;
   margin-bottom: 0;
-}
-
-ul,
-ol {
-  padding-left: 30px;
 }
 
 dt {
@@ -191,6 +191,35 @@ pre code {
   color: #666;
 }
 
+.header__nav-tree {
+  min-height: 1.875em;
+}
+
+.footer {
+  font-size: 14px;
+  max-width: 57rem;
+  width: 100%;
+  margin: 3rem auto 0;
+  padding: 0 1rem;
+}
+
+.footer__info {
+  color: #666;
+  line-height: 1.5;
+}
+
+.footer a {
+  color: inherit;
+}
+
+a.nav-item__link--active {
+  font-weight: bold;
+  text-decoration: none;
+  color: inherit;
+  cursor: default;
+  pointer-events: none;
+}
+
 .branch {
   display: inline-block;
   margin-right: 0.5em;
@@ -202,6 +231,8 @@ pre code {
 }
 
 .breadcrumbs {
+  line-height: 1.25em;
+  margin-bottom: 0.5em;
   display: inline-block;
 }
 
@@ -236,21 +267,4 @@ pre code {
 
 .commit-item__link {
   display: inline-block;
-}
-
-.footer {
-  font-size: 14px;
-  max-width: 57rem;
-  width: 100%;
-  margin: 3rem auto 0;
-  padding: 0 1rem;
-}
-
-.footer__info {
-  color: #666;
-  line-height: 1.5;
-}
-
-.footer a {
-  color: inherit;
 }

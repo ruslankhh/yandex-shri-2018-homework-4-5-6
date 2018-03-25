@@ -1,17 +1,15 @@
 const path = require('path');
-
 const createError = require('http-errors');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-
 const config = require('./../app.json');
-
 const indexRouter = require('./routes/index');
 const treeRouter = require('./routes/tree');
 const blobRouter = require('./routes/blob');
 const commitsRouter = require('./routes/commits');
+const branchesRouter = require('./routes/branches');
 
 const app = express();
 
@@ -25,12 +23,19 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../public')));
 
-app.locals = { config, title: '', body: '', error: false };
+app.locals = {
+  config,
+  title: '',
+  body: '',
+  error: false,
+  nav: { branches: true, breadcrumbs: true }
+};
 
 app.use('/', indexRouter);
 app.use('/tree', treeRouter);
 app.use('/blob', blobRouter);
 app.use('/commits', commitsRouter);
+app.use('/branches', branchesRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
