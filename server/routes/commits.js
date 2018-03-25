@@ -9,9 +9,9 @@ const config = require('./../../app.json');
 
 const router = express.Router();
 
-router.get(/^\/(\w+)\/?(.*?)?$/, (req, res, next) => {
-  const branch = req.params[0];
-  const pathnameArr = req.params[1]
+router.get(/^\/((\w+)\/?(.*?)?$)?/, (req, res, next) => {
+  const branch = req.params[1] || config.defaultBranch;
+  const pathnameArr = req.params[2]
     ? req.params[1].split('/').filter(s => !!s)
     : [];
   const pathname = pathnameArr.join('/');
@@ -45,7 +45,7 @@ router.get(/^\/(\w+)\/?(.*?)?$/, (req, res, next) => {
 
       const commits = parseCommitList(data[2]);
 
-      if (commits) {
+      if (file) {
         res.render('commits', { title, branches, breadcrumbs, branch, commits });
       } else {
         next();

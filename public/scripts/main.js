@@ -7,7 +7,7 @@ if (objectSelect) {
     const newObject = objectSelect.value;
     const { pathname } = window.location;
     const pathnameMatch = pathname
-      ? pathname.match(/^\/(\w+)\/?(\w+)\/?(.*?)?$/)
+      ? pathname.match(/^\/(\w+)\/?(\w+)?\/?(.*?)?$/)
       : null;
     const pathnameArr = pathnameMatch
       ? pathnameMatch.slice(1)
@@ -16,6 +16,7 @@ if (objectSelect) {
 
     if (newObject !== object) {
       const newPathnameArr = [type, newObject, filepath].filter(s => !!s);
+
       window.location.pathname = `/${newPathnameArr.join('/')}`;
     }
   });
