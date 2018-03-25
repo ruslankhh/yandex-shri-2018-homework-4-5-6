@@ -27,16 +27,16 @@ router.get(/^\/(\w+)\/?(.*?)?$/, (req, res, next) => {
         return;
       }
 
-      const root = { filepath: '', type: 'tree' };
-      const files = [ root, ...parseFileList(data) ];
-      const file = files.filter(file => pathname === file.filepath)[0];
+      const files = parseFileList(data);
+      const file = files[0];
 
       if (file) {
         git(`cat-file ${file.type} ${file.hash}`, { cwd })
           .then(data => {
             file.content = data;
             res.render('blob', { title, branch, file });
-          });
+          })
+          .catch(next);
       } else {
         next();
       }
