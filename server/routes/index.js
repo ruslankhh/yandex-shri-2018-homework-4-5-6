@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 
 const git = require('./../helpers/git');
@@ -8,10 +9,11 @@ const config = require('./../../app.json');
 const router = express.Router();
 
 router.get('/', (req, res, next) => {
-  const title = config.menu && config.menu.length !== 0 ? config.menu[0].title : '';
   const branch = 'master';
   const pathname = '';
-  const filepath = pathname || '.';
+
+  const title = config.menu && config.menu.length !== 0 ? config.menu[0].title : '';
+  const filepath = path.normalize(pathname);
   const cwd = config.repositoryDiractory;
 
   git(`ls-tree -r -t ${branch} ${filepath}`, { cwd })
