@@ -1,0 +1,11 @@
+<% include ./partials/header %>
+  <ul>
+    <% commits.forEach(commit => { %>
+      <li>
+        <a href="/commits/<%= commit.hash.slice(0, 8); %>">
+          <%= commit.message %>
+        </a>
+      </li>
+    <% }); %>
+  </ul>
+<% include ./partials/footer %>
