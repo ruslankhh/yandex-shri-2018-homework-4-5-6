@@ -4,10 +4,11 @@
   "main": "./server/index.js",
   "scripts": {
     "dev": "gulp",
+    "start": "node ./server/index.js",
     "lint": "eslint **/*.js",
     "lint-fix": "eslint **/*.js --fix",
-    "start": "node ./server/index.js",
-    "test": "mocha **/*.test.js"
+    "test": "mocha **/*.test.js",
+    "build": "NODE_ENV=production gulp build"
   },
   "husky": {
     "hooks": {
@@ -51,7 +52,10 @@
     "eslint-plugin-standard": "^3.0.1",
     "gh-pages": "^1.1.0",
     "gulp": "^3.9.1",
+    "gulp-clean-css": "^3.9.3",
     "gulp-concat": "^2.6.1",
+    "gulp-if": "^2.0.2",
+    "gulp-minify": "^2.1.0",
     "gulp-nodemon": "^2.2.1",
     "gulp-plumber": "^1.2.0",
     "gulp-postcss": "^7.0.1",
