@@ -28,7 +28,7 @@ router.get('/*', (req, res, next) => {
       const base = path.parse(data[1]).base;
       const root = { filepath: '', type: 'tree', base, level: -1 };
       const parents = [root];
-      const branches = _.uniq([object, ...parseBranchList(data)]);
+      const branches = _.uniq([object, ...parseBranchList(data[0])]);
       const breadcrumbs = parents;
       const links = config.menu;
 
