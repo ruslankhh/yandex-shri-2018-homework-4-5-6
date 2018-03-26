@@ -1,4 +1,6 @@
-function BranchSelect () {
+import parseURL from './../../scripts/parseURL';
+
+const BranchSelect = () => {
   const pathnameMatch = parseURL(window.location);
   const branchSelect = document.getElementsByClassName('branch-select')[0];
 
@@ -19,4 +21,6 @@ function BranchSelect () {
       }
     });
   }
-}
+};
+
+export default BranchSelect;

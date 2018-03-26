@@ -1,4 +1,4 @@
-function NavItem () {
+const NavItem = () => {
   const { pathname } = window.location;
   const navLinks = document.querySelectorAll('.nav-item__link');
 
@@ -9,4 +9,6 @@ function NavItem () {
       }
     });
   }
-}
+};
+
+export default NavItem;
