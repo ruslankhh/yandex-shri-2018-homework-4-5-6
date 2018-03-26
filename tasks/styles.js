@@ -4,7 +4,8 @@ import rename from 'gulp-rename';
 import plumber from 'gulp-plumber';
 
 gulp.task('styles', () => {
-  return gulp.src('src/styles/styles.post.css')
+  return gulp
+    .src('src/styles/styles.post.css')
     .pipe(plumber())
     .pipe(postcss())
     .pipe(rename('styles.css'))

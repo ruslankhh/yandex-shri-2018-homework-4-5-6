@@ -1,0 +1,26 @@
+{
+  "env": {
+    "browser": true,
+    "node": true,
+    "mocha": true
+  },
+  "extends": [
+    "prettier",
+    "semistandard"
+  ],
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true,
+        "printWidth": 90
+      }
+    ]
+  },
+  "plugins": [
+    "node",
+    "prettier",
+    "promise",
+    "standard"
+  ]
+}

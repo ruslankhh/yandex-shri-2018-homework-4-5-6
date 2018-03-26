@@ -6,7 +6,7 @@ import config from './../app.json';
 
 let called = false;
 
-gulp.task('nodemon', (cb) =>
+gulp.task('nodemon', cb =>
   nodemon({
     script: './server/index.js'
   })
@@ -21,15 +21,18 @@ gulp.task('nodemon', (cb) =>
     })
 );
 
-gulp.task('browser-sync', ['nodemon'], (cb) =>
-  browserSync({
-    notify: false,
-    online: false,
-    open: false,
-    proxy: `http://localhost:${config.port}`,
-    reloadDelay: 1000,
-    ui: false
-  }, cb)
+gulp.task('browser-sync', ['nodemon'], cb =>
+  browserSync(
+    {
+      notify: false,
+      online: false,
+      open: false,
+      proxy: `http://localhost:${config.port}`,
+      reloadDelay: 1000,
+      ui: false
+    },
+    cb
+  )
 );
 
 gulp.task('serve', ['browser-sync']);
