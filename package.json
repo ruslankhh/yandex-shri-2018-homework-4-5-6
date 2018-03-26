@@ -7,6 +7,8 @@
     "start": "node ./server/index.js",
     "lint": "eslint **/*.js",
     "lint-fix": "eslint **/*.js --fix",
+    "stylelint": "stylelint src/**/*.css",
+    "stylelint-fix": "stylelint src/**/*.css --fix",
     "test": "mocha **/*.test.js",
     "build": "NODE_ENV=production gulp build"
   },
@@ -17,6 +19,7 @@
   },
   "lint-staged": {
     "*.js": ["eslint --fix", "git add"],
+    "src/**/*.css": ["stylelint src/**/*.css --fix", "git add"],
     "*.json": ["prettier --write", "git add"]
   },
   "dependencies": {
@@ -81,6 +84,7 @@
     "run-sequence": "^2.2.0",
     "semistandard": "^11.0.0",
     "stylelint": "^8.4.0",
+    "stylelint-config-recommended-scss": "^3.1.0",
     "stylelint-config-standard": "^18.0.0",
     "stylelint-scss": "^2.5.0",
     "webpack-stream": "^4.0.3"
