@@ -1,10 +1,8 @@
-'use strict';
+import browserSync from 'browser-sync';
+import gulp from 'gulp';
+import nodemon from 'gulp-nodemon';
 
-const gulp = require('gulp');
-const browserSync = require('browser-sync');
-const nodemon = require('gulp-nodemon');
-
-const config = require('./app.json');
+import config from './../app.json';
 
 let called = false;
 
@@ -23,15 +21,15 @@ gulp.task('nodemon', (cb) =>
     })
 );
 
-gulp.task('browser-sync', (cb) =>
+gulp.task('browser-sync', ['nodemon'], (cb) =>
   browserSync({
     notify: false,
     online: false,
     open: false,
     proxy: `http://localhost:${config.port}`,
-    reloadDelay: 500,
+    reloadDelay: 1000,
     ui: false
   }, cb)
 );
 
-gulp.task('default', gulp.series('nodemon', 'browser-sync'));
+gulp.task('serve', ['browser-sync']);

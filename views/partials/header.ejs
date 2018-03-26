@@ -24,8 +24,8 @@
     <% if (!error) { %>
       <nav class="header__nav-tree">
         <% if (nav.branches) { %>
-          <span class="branch">
-            <select class="branch__select" name="branch__select">
+          <span class="header__branch">
+            <select class="branch-select" name="branch-select">
               <% branches.forEach((value, i) => { %>
                 <option value="<%= value %>" <%= value === object ? 'selected' : '' %>>
                   <%= value %>

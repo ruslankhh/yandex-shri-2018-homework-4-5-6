@@ -1,0 +1,13 @@
+.commit-item {
+  &__hash {
+    font-family: Menlo, Monaco, "Courier New", monospace;
+    font-size: 14px;
+    display: inline-block;
+    min-width: 72px;
+    margin-right: 0.5em;
+  }
+
+  &__link {
+    display: inline-block;
+  }
+}
