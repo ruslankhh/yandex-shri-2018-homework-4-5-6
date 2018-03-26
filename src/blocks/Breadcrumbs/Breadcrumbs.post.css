@@ -1,0 +1,21 @@
+.breadcrumbs {
+  line-height: 1.25em;
+  margin-bottom: 0.5em;
+  display: inline-block;
+
+  &__item {
+    &::after {
+      display: inline-block;
+      content: '/';
+    }
+
+    &--close::after {
+      display: none;
+    }
+
+    &:first-child a,
+    &:last-child span {
+      font-weight: bold;
+    }
+  }
+}

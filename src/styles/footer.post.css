@@ -1,0 +1,16 @@
+.footer {
+  font-size: 14px;
+  max-width: 57rem;
+  width: 100%;
+  margin: 3rem auto 0;
+  padding: 0 1rem;
+
+  &__info {
+    color: #666;
+    line-height: 1.5;
+  }
+
+  & a {
+    color: inherit;
+  }
+}

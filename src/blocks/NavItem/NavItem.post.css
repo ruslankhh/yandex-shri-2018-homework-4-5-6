@@ -1,0 +1,10 @@
+.nav-item {
+  a&__link {
+    &--active {
+      text-decoration: underline;
+      color: inherit;
+      cursor: default;
+      pointer-events: none;
+    }
+  }
+}

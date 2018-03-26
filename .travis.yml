@@ -1,0 +1,12 @@
+sudo: false
+language: node_js
+
+node_js:
+  - 9
+  - 8
+
+script:
+  - npm run lint
+  - npm run stylelint
+  - npm run test
+  - npm run build

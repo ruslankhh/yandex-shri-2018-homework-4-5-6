@@ -15,14 +15,12 @@ const server = http.createServer(app);
 // Listen on provided port, on all network interfaces.
 server.listen(PORT);
 
-server.on('error', (error) => {
+server.on('error', error => {
   if (error.syscall !== 'listen') {
     throw error;
   }
 
-  const bind = typeof PORT === 'string'
-    ? 'Pipe ' + PORT
-    : 'Port ' + PORT;
+  const bind = typeof PORT === 'string' ? 'Pipe ' + PORT : 'Port ' + PORT;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
@@ -39,8 +37,6 @@ server.on('error', (error) => {
 
 server.on('listening', () => {
   const addr = server.address();
-  const bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
+  const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
   debug('Listening on ' + bind);
 });
