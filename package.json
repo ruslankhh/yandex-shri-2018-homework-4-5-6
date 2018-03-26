@@ -6,24 +6,17 @@
     "dev": "gulp",
     "lint": "eslint **/*.js",
     "lint-fix": "eslint **/*.js --fix",
-    "precommit": "lint-staged",
     "start": "node ./server/index.js",
     "test": "mocha **/*.test.js"
   },
-  "lint-staged": {
-    "*.js": [
-      "eslint --fix",
-      "git add"
-    ],
-    "*.json": [
-      "prettier --write",
-      "git add"
-    ]
-  },
   "husky": {
     "hooks": {
-      "pre-commit": "npm test"
+      "pre-commit": "lint-staged && npm test"
     }
+  },
+  "lint-staged": {
+    "*.js": ["eslint --fix", "git add"],
+    "*.json": ["prettier --write", "git add"]
   },
   "dependencies": {
     "body-parser": "^1.18.2",
