@@ -12,7 +12,7 @@ router.get('/*', (req, res, next) => {
   const title = config.menu[2].title;
   const cwd = config.repositoryDirectory;
 
-  res.locals.nav = { branches: false, breadcrumbs: true };
+  const nav = { branches: false, breadcrumbs: true };
 
   Promise.all([
     git('branch', { cwd }),
@@ -32,7 +32,7 @@ router.get('/*', (req, res, next) => {
       const breadcrumbs = parents;
       const links = config.menu;
 
-      res.render('branches', { title, links, branches, breadcrumbs, object });
+      res.render('branches', { title, links, branches, breadcrumbs, object, nav });
     })
     .catch(next);
 });
