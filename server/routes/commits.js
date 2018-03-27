@@ -6,15 +6,13 @@ const mapLinks = require('./../helpers/mapLinks');
 const parseFileList = require('./../helpers/parseFileList');
 const parseBranchList = require('./../helpers/parseBranchList');
 const parseCommitList = require('./../helpers/parseCommitList');
-const config = require('./../../app.json');
+const config = { ...require('./../../app.json'), ...require('./../data/data.json') };
 
 const router = express.Router();
 
 router.get(/^\/(([\w-]+)\/?(.*?)?$)?/, (req, res, next) => {
   const object = req.params[1] || config.defaultBranch || 'master';
-  const pathnameArr = req.params[2]
-    ? req.params[2].split('/').filter(s => !!s)
-    : [];
+  const pathnameArr = req.params[2] ? req.params[2].split('/').filter(s => !!s) : [];
   const pathname = pathnameArr.join('/');
   const level = pathnameArr.length;
   const title = [object, pathname].filter(s => !!s).join('/');
@@ -46,7 +44,15 @@ router.get(/^\/(([\w-]+)\/?(.*?)?$)?/, (req, res, next) => {
         const links = mapLinks(config.menu, object, file);
         const commits = parseCommitList(data[2]);
 
-        res.render('commits', { title, links, branches, breadcrumbs, object, commits, file });
+        res.render('commits', {
+          title,
+          links,
+          branches,
+          breadcrumbs,
+          object,
+          commits,
+          file
+        });
       } else {
         next();
       }

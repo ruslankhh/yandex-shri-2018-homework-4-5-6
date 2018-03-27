@@ -1,31 +1,4 @@
 {
-  "name": "yandex-shri-2018-homework-4-5-6",
-  "author": {
-    "name": "Руслан Хуснетдинов",
-    "url": "http://ruslankhh.com"
-  },
-  "host": "localhost",
   "port": "8080",
-  "repositoryDirectory": ".",
-  "defaultBranch": "master",
-  "lang": "ru",
-  "title": "Git Store",
-  "menu": [
-    {
-      "title": "Главная",
-      "url": "/"
-    },
-    {
-      "title": "Файлы",
-      "url": "/tree"
-    },
-    {
-      "title": "Коммиты",
-      "url": "/commits"
-    },
-    {
-      "title": "Ветки",
-      "url": "/branches"
-    }
-  ]
+  "repositoryDirectory": "."
 }

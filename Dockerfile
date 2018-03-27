@@ -9,9 +9,13 @@ WORKDIR /usr/src/app
 COPY . .
 
 ENV PORT=80
-ENV NODE_ENV=development
+ENV REPO=https://github.com/ruslankhh/yandex-shri-2018-homework-4-5-6
 
 RUN npm install --quient
 RUN npm run build
+RUN git clone ${REPO} repo
+RUN echo '{\n  "port": "${PORT}",\n  "repositoryDirectory": "./repo"\n}' > app.json
+
+EXPOSE ${PORT}
 
 CMD npm start -- --port $PORT

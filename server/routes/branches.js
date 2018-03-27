@@ -3,7 +3,7 @@ const path = require('path');
 const express = require('express');
 const git = require('./../helpers/git');
 const parseBranchList = require('./../helpers/parseBranchList');
-const config = require('./../../app.json');
+const config = { ...require('./../../app.json'), ...require('./../data/data.json') };
 
 const router = express.Router();
 
@@ -14,10 +14,7 @@ router.get('/*', (req, res, next) => {
 
   const nav = { branches: false, breadcrumbs: true };
 
-  Promise.all([
-    git('branch', { cwd }),
-    git('rev-parse --show-toplevel', { cwd })
-  ])
+  Promise.all([git('branch', { cwd }), git('rev-parse --show-toplevel', { cwd })])
     .then(data => {
       if (!data) {
         next();

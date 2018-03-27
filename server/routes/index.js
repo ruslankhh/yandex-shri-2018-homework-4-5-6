@@ -4,7 +4,7 @@ const express = require('express');
 const git = require('./../helpers/git');
 const parseFileList = require('./../helpers/parseFileList');
 const parseBranchList = require('./../helpers/parseBranchList');
-const config = require('./../../app.json');
+const config = { ...require('./../../app.json'), ...require('./../data/data.json') };
 
 const router = express.Router();
 
