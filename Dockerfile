@@ -10,11 +10,12 @@ COPY . .
 
 ENV PORT=80
 ENV REPO=https://github.com/ruslankhh/yandex-shri-2018-homework-4-5-6
+ENV REPO_DIR=repo
 
 RUN npm install --quient
 RUN npm run build
-RUN git clone ${REPO} repo
-RUN echo '{\n  "port": "${PORT}",\n  "repositoryDirectory": "./repo"\n}' > app.json
+RUN git clone ${REPO} ${REPO_DIR}
+RUN echo '{\n  "port": "'$PORT'",\n  "repositoryDirectory": "'$REPO_DIR'"\n}' > app.json
 
 EXPOSE ${PORT}
 
