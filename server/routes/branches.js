@@ -22,7 +22,7 @@ router.get('/*', (req, res, next) => {
         return;
       }
 
-      const base = path.parse(data[1]).base;
+      const base = path.parse(data[1]).base.trim();
       const root = { filepath: '', type: 'tree', base, level: -1 };
       const parents = [root];
       const branches = _.uniq([object, ...parseBranchList(data[0])]);

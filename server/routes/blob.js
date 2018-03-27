@@ -30,7 +30,7 @@ router.get(/^\/(([\w-]+)\/?(.*?)?$)?/, (req, res, next) => {
         return;
       }
 
-      const base = path.parse(data[2]).base;
+      const base = path.parse(data[2]).base.trim();
       const root = { filepath: '', type: 'tree', base, level: -1 };
       const files = [root, ...parseFileList(data[0])];
       const file = files.filter(
