@@ -6,9 +6,9 @@ node_js:
 
 aliases:
   before_deploy: &before_deploy
-    - docker login --username=_ --password=$(heroku auth:token) registry.heroku.com
-    - docker pull registry.heroku.com/$APP/web:latest
-    - docker build --no-cache --tag registry.heroku.com/$APP/web .
+  - docker login --username=_ --password=$(heroku auth:token) registry.heroku.com
+  - docker pull registry.heroku.com/$APP/web:latest
+  - docker build --no-cache --tag registry.heroku.com/$APP/web .
   deploy: &deploy
     provider: heroku
     api_key:
@@ -25,23 +25,38 @@ jobs:
     - npm run stylelint
     - npm run test
     - npm run build
+  - stage: Deploy (test)
+    if: tag IS blank
+    script:
+    - npm run build
+    env:
+    - APP=shri-git-store-test
+    before_deploy:
+      <<: *before_deploy
+    deploy:
+      <<: *deploy
+      app: shri-git-store-test
+      on:
+        all_branches: true
   - stage: Deploy (development)
     if: tag IS blank
     script:
     - npm run build
     env:
-      - APP=shri-git-store-master
+    - APP=shri-git-store-master
     before_deploy:
       <<: *before_deploy
     deploy:
       <<: *deploy
       app: shri-git-store-master
+      on:
+        branch: master
   - stage: Deploy (production)
     if: tag IS present
     script:
     - npm run build
     env:
-      - APP=shri-git-store-production
+    - APP=shri-git-store-production
     before_deploy:
       <<: *before_deploy
     deploy:
