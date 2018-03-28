@@ -6,9 +6,7 @@
     "dev": "gulp",
     "start": "node ./server/index.js",
     "lint": "eslint **/*.js",
-    "lint-fix": "eslint **/*.js --fix",
     "stylelint": "stylelint src/**/*.css",
-    "stylelint-fix": "stylelint src/**/*.css --fix",
     "test": "mocha test/**/*.test.js",
     "build": "NODE_ENV=production gulp build"
   },
