@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "gulp",
     "postinstall": "bash ./bin/postinstall.sh",
+    "prestart": "npm run build",
     "start": "node ./server/index.js",
     "lint": "eslint **/*.js",
     "stylelint": "stylelint src/**/*.css",
