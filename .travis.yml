@@ -4,6 +4,9 @@ language: node_js
 node_js:
 - 9
 
+env:
+- APP=shri-git-store-test
+
 aliases:
   before_deploy: &before_deploy
   - docker login --username=_ --password=$(heroku auth:token) registry.heroku.com
