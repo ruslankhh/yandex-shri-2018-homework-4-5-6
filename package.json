@@ -9,7 +9,8 @@
     "start": "node ./server/index.js",
     "lint": "eslint **/*.js",
     "stylelint": "stylelint src/**/*.css",
-    "test": "mocha test/**/*.test.js",
+    "test": "mocha test/server/**/*.test.js",
+    "hermione": "hermione test/hermione/**/*.test.js",
     "build": "NODE_ENV=production gulp build"
   },
   "husky": {
@@ -63,6 +64,8 @@
     "gulp-plumber": "^1.2.0",
     "gulp-postcss": "^7.0.1",
     "gulp-rename": "^1.2.2",
+    "hermione": "^0.63.0",
+    "html-reporter": "^2.9.0",
     "husky": "^0.15.0-rc.13",
     "lint-staged": "^4.3.0",
     "mocha": "^5.0.5",
