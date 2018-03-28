@@ -23,10 +23,12 @@ describe('git', () => {
 
   it('ls-tree -r -t <object> <path>', () => {
     const object = 'test';
-    const { filepath } = tree[object][0];
+    const filepath = '.';
 
     return git(`ls-tree -r -t ${object} ${filepath}`, { cwd }).then(data => {
-      expect(true).to.equal(data.includes(filepath));
+      expect(data).to.be.a('string');
+      expect(data.includes(tree['master'][0].filepath)).to.equal(true);
+      expect(data.includes(tree[object][0].filepath)).to.equal(true);
     });
   });
 
