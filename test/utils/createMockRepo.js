@@ -27,7 +27,7 @@ const createMockRepo = (cwd, tree) => {
             )
           )
           .then(() => git(`add .`, { cwd }))
-          .then(() => git(`commit -m "Message#${i}"`, { cwd }))
+          .then(() => git(`commit -m Message#${i}`, { cwd }))
           .then(() => git(`checkout master`, { cwd }));
         i = i + 1;
 
