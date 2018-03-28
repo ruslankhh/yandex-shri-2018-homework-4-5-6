@@ -10,7 +10,7 @@ const parseFileData = require('./../../../server/helpers/parseFileData');
 const parseFileList = require('./../../../server/helpers/parseFileList');
 
 describe('parse', () => {
-  const cwd = './repo';
+  const cwd = './test_repo';
   const tree = {
     master: [{ filepath: 'README.md', content: '# Hello, world!' }],
     feature: [{ filepath: 'main.js', content: "console.log('It\\'s work');" }],

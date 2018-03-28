@@ -4,3 +4,4 @@ coverage
 node_modules
 static
 repo
+test_repo

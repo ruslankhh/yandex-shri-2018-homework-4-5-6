@@ -8,7 +8,7 @@ const git = require('./../../../server/helpers/git');
 const parseFileList = require('./../../../server/helpers/parseFileList');
 
 describe('git', () => {
-  const cwd = './repo';
+  const cwd = './test_repo';
   const tree = {
     master: [{ filepath: 'README.md', content: '# Hello, world!' }],
     feature: [{ filepath: 'main.js', content: "console.log('It\\'s work');" }],
@@ -47,7 +47,7 @@ describe('git', () => {
   });
 
   it('rev-parse --show-toplevel', () => {
-    const expected = path.join(__dirname, './../../../repo') + '\n';
+    const expected = path.join(__dirname, './../../../test_repo') + '\n';
 
     return git(`rev-parse --show-toplevel`, { cwd }).then(data => {
       expect(expected).to.equal(data);
