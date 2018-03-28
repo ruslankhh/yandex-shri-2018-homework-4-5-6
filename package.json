@@ -9,7 +9,7 @@
     "lint-fix": "eslint **/*.js --fix",
     "stylelint": "stylelint src/**/*.css",
     "stylelint-fix": "stylelint src/**/*.css --fix",
-    "test": "mocha **/*.test.js",
+    "test": "mocha test/**/*.test.js",
     "build": "NODE_ENV=production gulp build"
   },
   "husky": {
