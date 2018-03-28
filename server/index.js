@@ -7,7 +7,7 @@ const config = { ...require('./../config.json'), ...require('./data/data.json') 
 
 // Get port from environment and store in Express.
 const PORT = normalizePort(
-  process.env.PORT || process.env.NODE_ENV === 'production' ? '80' : config.port
+  process.env.PORT || process.env.NODE_ENV === 'production' ? 80 : config.port
 );
 app.set('port', PORT);
 
