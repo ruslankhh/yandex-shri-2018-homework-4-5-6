@@ -25,18 +25,6 @@ jobs:
       - npm run stylelint
       - npm run test
 
-  - stage: Deploy (test)
-    if: tag IS blank
-    env:
-      - APP=shri-git-store-test
-    before_deploy:
-      <<: *before_deploy
-    deploy:
-      <<: *deploy
-      app: shri-git-store-test
-      on:
-        all_branches: true
-
   - stage: Deploy (development)
     if: tag IS blank
     env:
@@ -52,11 +40,11 @@ jobs:
   - stage: Deploy (production)
     if: tag IS present
     env:
-      - APP=shri-git-store-production
+      - APP=shri-git-store
     before_deploy:
       <<: *before_deploy
     deploy:
       <<: *deploy
-      app: shri-git-store-production
+      app: shri-git-store
       on:
         tags: true
