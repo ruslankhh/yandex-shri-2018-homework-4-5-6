@@ -4,7 +4,7 @@ const express = require('express');
 const git = require('./../helpers/git');
 const parseFileList = require('./../helpers/parseFileList');
 const parseBranchList = require('./../helpers/parseBranchList');
-const config = { ...require('./../../app.json'), ...require('./../data/data.json') };
+const config = { ...require('./../../config.json'), ...require('./../data/data.json') };
 
 const router = express.Router();
 
@@ -13,7 +13,7 @@ router.get('/', (req, res, next) => {
   const pathname = '';
   const title = config.menu && config.menu.length !== 0 ? config.menu[0].title : '';
   const filepath = path.normalize(pathname);
-  const cwd = config.repositoryDirectory;
+  const cwd = config.repoDir;
 
   Promise.all([
     git(`ls-tree -r -t ${object.replace('--', '/')} ${filepath}`, { cwd }),

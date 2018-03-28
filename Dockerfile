@@ -1,4 +1,8 @@
-FROM node:slim
+FROM node:9
+
+ENV PORT=80
+ENV REPO=https://github.com/ruslankhh/yandex-shri-2018-homework-4-5-6
+ENV REPO_DIR=repo
 
 RUN apt-get update
 RUN apt-get upgrade -y
@@ -8,19 +12,16 @@ WORKDIR /usr/src/app
 
 COPY . .
 
-ENV PORT=80
-ENV REPO=https://github.com/ruslankhh/yandex-shri-2018-homework-4-5-6
-ENV REPO_DIR=repo
-
 RUN npm install --quient
 RUN npm run build
-RUN git clone ${REPO} ${REPO_DIR}
-RUN cd repo && \
-    git branch -a | grep remotes | grep -v HEAD | cut -d"/" -f 3 | \
-    awk '{print "git branch --track " $0}' | bash && \
-    cd ..
-RUN echo '{\n  "port": "'$PORT'",\n  "repositoryDirectory": "'$REPO_DIR'"\n}' > app.json
 
 EXPOSE ${PORT}
 
-CMD npm start -- --port $PORT
+CMD mkdir /usr/src/app/${REPO_DIR} && \
+    git clone ${REPO} /usr/src/app/${REPO_DIR} && \
+    cd /usr/src/app/${REPO_DIR} && \
+    git branch -a | grep remotes | grep -v HEAD | cut -d"/" -f 3 | \
+    awk '{print "git branch --track " $0}' | bash && \
+    cd .. && \
+    echo '{\n  "port": "'$PORT'",\n  "repoDir": "'$REPO_DIR'"\n}' > config.json && \
+    npm start -- --port $PORT

@@ -5,7 +5,7 @@ const git = require('./../helpers/git');
 const mapLinks = require('./../helpers/mapLinks');
 const parseFileList = require('./../helpers/parseFileList');
 const parseBranchList = require('./../helpers/parseBranchList');
-const config = { ...require('./../../app.json'), ...require('./../data/data.json') };
+const config = { ...require('./../../config.json'), ...require('./../data/data.json') };
 
 const router = express.Router();
 
@@ -16,7 +16,7 @@ router.get(/^\/(([\w-]+)\/?(.*?)?$)?/, (req, res, next) => {
   const level = pathnameArr.length;
   const title = [object, pathname].filter(s => !!s).join('/');
   const filepath = path.normalize(pathname);
-  const cwd = config.repositoryDirectory;
+  const cwd = config.repoDir;
 
   Promise.all([
     git(`ls-tree -r -t ${object.replace('--', '/')} ${filepath}`, { cwd }),

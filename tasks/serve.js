@@ -2,7 +2,7 @@ import browserSync from 'browser-sync';
 import gulp from 'gulp';
 import nodemon from 'gulp-nodemon';
 
-import config from './../app.json';
+import config from './../config.json';
 
 let called = false;
 

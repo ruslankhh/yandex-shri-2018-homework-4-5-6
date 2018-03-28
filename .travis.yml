@@ -1,19 +1,19 @@
 sudo: required
+services:
+  - docker
 language: node_js
-
 node_js:
-- 9
+  - 9
+cache:
+  directories:
+    - node_modules
 
 aliases:
   before_deploy: &before_deploy
-  - docker login --username=_ --password=$(heroku auth:token) registry.heroku.com
-  - docker pull registry.heroku.com/$APP/web:latest
-  - docker build --no-cache --tag registry.heroku.com/$APP/web .
+    - docker login --username=_ --password=$(heroku auth:token) registry.heroku.com
+    - docker build --no-cache --tag registry.heroku.com/$APP/web .
   deploy: &deploy
-    provider: heroku
-    api_key:
-      secure: W8TPmyDhtlUVSrST7ocspQghYz4IF6Z9SipbBxVv4nKf8IOu0VXdPqAHVfkuG6G+rRua1kDgW5KluFFZg4dQPf6RLZi5LanlNsmsnY25hgl3RWGGInU7j1tEE9aF+G58qmZ+NxviSt6/ccqcEVMJJBC/6JymE5Ev+13IWVmCjFsU94UVDgDH5Q5yrELv+gqqqkh3WOAsmpbB6umZWIOEnpq5ibPE/cwlBq3qKSOK86TR2exUQjNmQUudKQCSLG0gwFC4cPnSb9cxauFv2kuyBC4T0xvb2sHO9bkaiHP3XNjH/kSrY5D+0NVs08MsjSK5xipMQ9955npTWpi2bMD7mluii/sfXjma50a7O0uAjaiN1PwQsdmBXq5aOyS3TlUAU4c1/qjSR7gL0r0xrO0ModVDzSzXpDZ8Yl0J5K+F1WgnGKGxr9KYLjsvnUhPLJ1UxUA8oYCiIheP6t7bPeBIGwselW57sKlujEExZYRrJfRPHKv0qid92JF7QpkKC04mnl44LUSY5cBrBgaogeNh295xgUfo1EHm6Hc2gMsGgmyVFVxQCjyEupyLQmm9cpPp1PPdPgssxnBXSZyCw1R8WQcATc0sZFcWJX0rrcSg6sHLqNXFAeOWXP2LlytnuEQ1AO6lw0z22fDKrUN0kpQxM1aM4WSXKjqUzEK34NAhj3U=
-    skip_cleanup: true
+    provider: script
     script:
       - docker push registry.heroku.com/$APP/web
 
@@ -21,29 +21,14 @@ jobs:
   include:
   - stage: Test (unit)
     script:
-    - npm run lint
-    - npm run stylelint
-    - npm run test
-    - npm run build
-  - stage: Deploy (test)
-    if: tag IS blank
-    script:
-    - npm run build
-    env:
-    - APP=shri-git-store-test
-    before_deploy:
-      <<: *before_deploy
-    deploy:
-      <<: *deploy
-      app: shri-git-store-test
-      on:
-        all_branches: true
+      - npm run lint
+      - npm run stylelint
+      - npm run test
+
   - stage: Deploy (development)
     if: tag IS blank
-    script:
-    - npm run build
     env:
-    - APP=shri-git-store-master
+      - APP=shri-git-store-master
     before_deploy:
       <<: *before_deploy
     deploy:
@@ -51,16 +36,15 @@ jobs:
       app: shri-git-store-master
       on:
         branch: master
+
   - stage: Deploy (production)
     if: tag IS present
-    script:
-    - npm run build
     env:
-    - APP=shri-git-store-production
+      - APP=shri-git-store
     before_deploy:
       <<: *before_deploy
     deploy:
       <<: *deploy
-      app: shri-git-store-production
+      app: shri-git-store
       on:
         tags: true
