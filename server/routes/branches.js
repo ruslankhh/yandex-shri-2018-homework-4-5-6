@@ -3,14 +3,14 @@ const path = require('path');
 const express = require('express');
 const git = require('./../helpers/git');
 const parseBranchList = require('./../helpers/parseBranchList');
-const config = { ...require('./../../app.json'), ...require('./../data/data.json') };
+const config = { ...require('./../../config.json'), ...require('./../data/data.json') };
 
 const router = express.Router();
 
 router.get('/*', (req, res, next) => {
   const object = config.defaultBranch || 'master';
   const title = config.menu[2].title;
-  const cwd = config.repositoryDirectory;
+  const cwd = config.repoDir;
 
   const nav = { branches: false, breadcrumbs: true };
 

@@ -3,7 +3,7 @@ const debug = require('debug')('yandex-shri-2018-homework-4-5-6:server');
 
 const app = require('./app');
 const normalizePort = require('./helpers/normalizePort');
-const config = { ...require('./../app.json'), ...require('./data/data.json') };
+const config = { ...require('./../config.json'), ...require('./data/data.json') };
 
 // Get port from environment and store in Express.
 const PORT = normalizePort(process.env.PORT || config.port);

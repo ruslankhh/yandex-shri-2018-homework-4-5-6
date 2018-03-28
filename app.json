@@ -1,4 +1,12 @@
 {
-  "port": "8080",
-  "repositoryDirectory": "."
+  "name": "shri-git-store-master",
+  "scripts": {},
+  "env": {},
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [],
+  "buildpacks": []
 }

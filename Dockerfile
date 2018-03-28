@@ -19,7 +19,7 @@ RUN cd repo && \
     git branch -a | grep remotes | grep -v HEAD | cut -d"/" -f 3 | \
     awk '{print "git branch --track " $0}' | bash && \
     cd ..
-RUN echo '{\n  "port": "'$PORT'",\n  "repositoryDirectory": "'$REPO_DIR'"\n}' > app.json
+RUN echo '{\n  "port": "'$PORT'",\n  "repoDir": "'$REPO_DIR'"\n}' > config.json
 
 EXPOSE ${PORT}
 
