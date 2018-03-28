@@ -6,7 +6,9 @@ const normalizePort = require('./helpers/normalizePort');
 const config = { ...require('./../config.json'), ...require('./data/data.json') };
 
 // Get port from environment and store in Express.
-const PORT = normalizePort(process.env.PORT || config.port);
+const PORT = normalizePort(
+  process.env.PORT || process.env.NODE_ENV === 'production' ? '80' : config.port
+);
 app.set('port', PORT);
 
 // Create HTTP server.

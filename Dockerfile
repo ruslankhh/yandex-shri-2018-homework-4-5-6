@@ -8,6 +8,7 @@ COPY . .
 
 RUN npm install --quient
 RUN npm run build
-RUN npm run clone-repo
+
+EXPOSE ${PORT}
 
 CMD npm start -- --port $PORT
