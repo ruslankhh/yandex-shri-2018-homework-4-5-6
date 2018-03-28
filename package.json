@@ -4,7 +4,7 @@
   "main": "./server/index.js",
   "scripts": {
     "dev": "gulp",
-    "postinstall": "bash ./bin/clone_repo.sh",
+    "postinstall": "bash ./bin/postinstall.sh",
     "start": "node ./server/index.js",
     "lint": "eslint **/*.js",
     "stylelint": "stylelint src/**/*.css",

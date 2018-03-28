@@ -1,6 +1,6 @@
 FROM node:9
 
-ENV PORT=9000
+ENV PORT=8080
 
 WORKDIR /usr/src/app
 
