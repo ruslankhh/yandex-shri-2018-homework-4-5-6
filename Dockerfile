@@ -15,6 +15,10 @@ ENV REPO_DIR=repo
 RUN npm install --quient
 RUN npm run build
 RUN git clone ${REPO} ${REPO_DIR}
+RUN cd repo && \
+    git branch -a | grep remotes | grep -v HEAD | cut -d"/" -f 3 | \
+    awk '{print "git branch --track " $0}' | bash && \
+    cd ..
 RUN echo '{\n  "port": "'$PORT'",\n  "repositoryDirectory": "'$REPO_DIR'"\n}' > app.json
 
 EXPOSE ${PORT}
