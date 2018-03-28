@@ -4,11 +4,10 @@
   "main": "./server/index.js",
   "scripts": {
     "dev": "gulp",
+    "postinstall": "bash ./bin/postinstall.sh",
     "start": "node ./server/index.js",
     "lint": "eslint **/*.js",
-    "lint-fix": "eslint **/*.js --fix",
     "stylelint": "stylelint src/**/*.css",
-    "stylelint-fix": "stylelint src/**/*.css --fix",
     "test": "mocha test/**/*.test.js",
     "build": "NODE_ENV=production gulp build"
   },

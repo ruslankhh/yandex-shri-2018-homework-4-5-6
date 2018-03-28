@@ -1,15 +1,12 @@
 {
   "name": "shri-git-store",
-  "scripts": {
-  },
-  "env": {
-  },
+  "scripts": {},
+  "env": {},
   "formation": {
+    "web": {
+      "quantity": 1
+    }
   },
-  "addons": [
-
-  ],
-  "buildpacks": [
-
-  ]
+  "addons": [],
+  "buildpacks": []
 }
