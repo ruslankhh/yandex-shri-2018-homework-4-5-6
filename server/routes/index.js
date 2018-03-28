@@ -4,7 +4,7 @@ const express = require('express');
 const git = require('./../helpers/git');
 const parseFileList = require('./../helpers/parseFileList');
 const parseBranchList = require('./../helpers/parseBranchList');
-const config = require('./../../app.json');
+const config = { ...require('./../../app.json'), ...require('./../data/data.json') };
 
 const router = express.Router();
 
@@ -27,7 +27,7 @@ router.get('/', (req, res, next) => {
         return;
       }
 
-      const base = path.parse(data[2]).base;
+      const base = path.parse(data[2]).base.trim();
       const root = { filepath: '', type: 'tree', base, level: -1 };
       const files = parseFileList(data[0]);
       const breadcrumbs = [root];
