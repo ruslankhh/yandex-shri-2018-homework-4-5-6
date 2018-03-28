@@ -6,21 +6,9 @@
     "dev": "gulp",
     "start": "node ./server/index.js",
     "lint": "eslint **/*.js",
-    "lint-fix": "eslint **/*.js --fix",
     "stylelint": "stylelint src/**/*.css",
-    "stylelint-fix": "stylelint src/**/*.css --fix",
     "test": "mocha **/*.test.js",
     "build": "NODE_ENV=production gulp build"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged && npm test"
-    }
-  },
-  "lint-staged": {
-    "*.js": ["eslint --fix", "git add"],
-    "src/**/*.css": ["stylelint src/**/*.css --fix", "git add"],
-    "*.json": ["prettier --write", "git add"]
   },
   "dependencies": {
     "body-parser": "^1.18.2",
