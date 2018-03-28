@@ -15,8 +15,8 @@ ENV REPO_DIR=repo
 RUN npm install --quient
 RUN npm run build
 RUN mkdir ${REPO_DIR}
-RUN git clone ${REPO} ${REPO_DIR}
-RUN cd repo && \
+RUN git clone --mirror ${REPO} ${REPO_DIR}
+RUN cd ${REPO_DIR} && \
     git branch -a | grep remotes | grep -v HEAD | cut -d"/" -f 3 | \
     awk '{print "git branch --track " $0}' | bash && \
     cd ..
