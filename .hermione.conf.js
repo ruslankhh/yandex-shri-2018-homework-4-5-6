@@ -19,10 +19,8 @@ module.exports = {
       }
     }
   },
-  retry: 1,
   plugins: {
     'html-reporter/hermione': {
-      enabled: true,
       path: './reports'
     }
   }
