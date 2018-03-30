@@ -10,7 +10,7 @@
     "lint": "eslint **/*.js",
     "stylelint": "stylelint src/**/*.css",
     "test": "mocha test/server/**/*.test.js",
-    "hermione": "hermione test/hermione/**/*.test.js",
+    "hermione": "hermione test/desktop/**/*.hermione.js",
     "build": "NODE_ENV=production gulp build"
   },
   "husky": {

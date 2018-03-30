@@ -3,7 +3,7 @@ module.exports = {
   gridUrl: 'http://0.0.0.0:4444/wd/hub',
   sets: {
     desktop: {
-      files: './test/hermione',
+      files: './test/desktop',
         browsers: ['firefox', 'chrome']
     }
   },
@@ -22,6 +22,7 @@ module.exports = {
   retry: 1,
   plugins: {
     'html-reporter/hermione': {
+      enabled: true,
       path: './reports'
     }
   }
