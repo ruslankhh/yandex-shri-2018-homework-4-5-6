@@ -6,9 +6,10 @@ const createMockRepo = require('./../../utils/createMockRepo');
 const cleanMockRepo = require('./../../utils/cleanMockRepo');
 const git = require('./../../../server/helpers/git');
 const parseFileList = require('./../../../server/helpers/parseFileList');
+const config = require('./../../../config.json');
 
 describe('git', () => {
-  const cwd = './test_repo';
+  const cwd = config.repoDir;
   const tree = {
     master: [{ filepath: 'README.md', content: '# Hello, world!' }],
     feature: [{ filepath: 'main.js', content: "console.log('It\\'s work');" }],
@@ -47,7 +48,7 @@ describe('git', () => {
   });
 
   it('rev-parse --show-toplevel', () => {
-    const expected = path.join(__dirname, './../../../test_repo') + '\n';
+    const expected = path.join(__dirname, './../../../', cwd) + '\n';
 
     return git(`rev-parse --show-toplevel`, { cwd }).then(data => {
       expect(expected).to.equal(data);

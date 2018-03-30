@@ -8,9 +8,10 @@ const parseBranchList = require('./../../../server/helpers/parseBranchList');
 const parseCommitList = require('./../../../server/helpers/parseCommitList');
 const parseFileData = require('./../../../server/helpers/parseFileData');
 const parseFileList = require('./../../../server/helpers/parseFileList');
+const config = require('./../../../config.json');
 
 describe('parse', () => {
-  const cwd = './test_repo';
+  const cwd = config.repoDir;
   const tree = {
     master: [{ filepath: 'README.md', content: '# Hello, world!' }],
     feature: [{ filepath: 'main.js', content: "console.log('It\\'s work');" }],
