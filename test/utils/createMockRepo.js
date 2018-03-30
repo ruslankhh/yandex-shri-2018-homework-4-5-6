@@ -8,9 +8,8 @@ const git = require('./../../server/helpers/git');
 const mkdirAsync = promisify(mkdir);
 const writeFileAsync = promisify(writeFile);
 
-const createMockRepo = (cwd, tree) => {
+const createMockRepo = (cwd, tree, i = 0) => {
   const branches = _.uniq(['master', ...Object.keys(tree)]);
-  let i = 0;
 
   return Promise.resolve()
     .then(() => mkdirAsync(cwd))
