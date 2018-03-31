@@ -1,11 +1,15 @@
-const { assert } = require('chai');
+const { expect } = require('chai');
 
 describe('title', () => {
-  it('должен вернуть "Главная | Git Store"', () =>
-    this.browser
+  // eslint-disable-next-line
+  it('соответствует ожидаемому', function () {
+    const expected = 'Главная | Git Store';
+
+    return this.browser
       .url('/')
       .getTitle()
       .then(title => {
-        assert.equal(title, 'Главная | Git Store');
-      }));
+        expect(title).to.equal(expected);
+      });
+  });
 });
