@@ -1,29 +1,22 @@
-const { describe, it, before } = require('mocha');
+const { describe, it } = require('mocha');
 const { expect } = require('chai');
 
-const createMockRepo = require('./../../utils/createMockRepo');
-const cleanMockRepo = require('./../../utils/cleanMockRepo');
 const git = require('./../../../server/helpers/git');
 const parseBranchList = require('./../../../server/helpers/parseBranchList');
 const parseCommitList = require('./../../../server/helpers/parseCommitList');
 const parseFileData = require('./../../../server/helpers/parseFileData');
 const parseFileList = require('./../../../server/helpers/parseFileList');
-const config = require('./../../../config.json');
+const computeTreeMockRepo = require('./../../utils/computeTreeMockRepo');
+const config = {
+  ...require('./../../../config.json'),
+  ...require('./../../data/data.json')
+};
+
+const { repoDir: cwd, commits } = config;
+const defaultBranch = config.defaultBranch || 'master';
+const tree = computeTreeMockRepo(commits, defaultBranch);
 
 describe('parse', () => {
-  const cwd = config.repoDir;
-  const tree = {
-    master: [{ filepath: 'README.md', content: '# Hello, world!' }],
-    feature: [{ filepath: 'main.js', content: "console.log('It\\'s work');" }],
-    test: [{ filepath: 'test.test.js', content: "console.log('Test!');" }]
-  };
-
-  before(() =>
-    Promise.resolve()
-      .then(() => cleanMockRepo(cwd))
-      .then(() => createMockRepo(cwd, tree))
-  );
-
   it('branch list', () => {
     const expected = Object.keys(tree).sort();
 
@@ -37,22 +30,29 @@ describe('parse', () => {
   it('commit list', () => {
     const object = 'test';
     const { filepath } = tree[object][0];
+    let expectedCountCommits = commits.filter(
+      commit =>
+        !!commit[object] && commit[object].some(file => file.filepath === filepath)
+    ).length;
+
+    if (commits[0][defaultBranch].some(file => file.filepath === filepath)) {
+      expectedCountCommits += 1;
+    }
 
     return git(`log ${object} -- ${filepath}`, { cwd }).then(data => {
-      const commits = parseCommitList(data);
+      const commitObjects = parseCommitList(data);
 
-      expect(commits)
+      expect(commitObjects)
         .to.be.a('array')
-        .with.lengthOf(1);
-      expect(commits[0]).to.have.property('hash');
-      expect(commits[0])
+        .with.lengthOf(expectedCountCommits);
+      expect(commitObjects[0]).to.have.property('hash');
+      expect(commitObjects[0])
         .to.have.property('shortHash')
         .with.lengthOf(8);
-      expect(commits[0]).to.have.property('author');
-      expect(commits[0]).to.have.property('date');
-      expect(commits[0]).to.have.property('message');
-      expect(commits[0].author).to.be.a('object');
-      expect(commits[0].message).to.equal('Message#3');
+      expect(commitObjects[0]).to.have.property('author');
+      expect(commitObjects[0]).to.have.property('date');
+      expect(commitObjects[0]).to.have.property('message');
+      expect(commitObjects[0].author).to.be.a('object');
     });
   });
 
@@ -83,13 +83,14 @@ describe('parse', () => {
   it('file list', () => {
     const object = 'test';
     const filepath = '.';
+    const expectedCountFiles = tree[object].length;
 
     return git(`ls-tree -r -t ${object} ${filepath}`, { cwd }).then(data => {
       const files = parseFileList(data);
 
       expect(files)
         .to.be.a('array')
-        .with.lengthOf(2);
+        .with.lengthOf(expectedCountFiles);
       expect(files[0]).to.be.a('object');
       expect(files[0]).to.have.property('filepath');
       expect(files[0]).to.have.property('level');

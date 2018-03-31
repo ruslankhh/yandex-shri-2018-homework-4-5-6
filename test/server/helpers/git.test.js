@@ -1,35 +1,27 @@
-const { describe, it, before } = require('mocha');
+const { describe, it } = require('mocha');
 const { expect } = require('chai');
 const path = require('path');
 
-const createMockRepo = require('./../../utils/createMockRepo');
-const cleanMockRepo = require('./../../utils/cleanMockRepo');
 const git = require('./../../../server/helpers/git');
 const parseFileList = require('./../../../server/helpers/parseFileList');
-const config = require('./../../../config.json');
+const computeTreeMockRepo = require('./../../utils/computeTreeMockRepo');
+const config = {
+  ...require('./../../../config.json'),
+  ...require('./../../data/data.json')
+};
+
+const { repoDir: cwd, commits } = config;
+const defaultBranch = config.defaultBranch || 'master';
+const tree = computeTreeMockRepo(commits, defaultBranch);
 
 describe('git', () => {
-  const cwd = config.repoDir;
-  const tree = {
-    master: [{ filepath: 'README.md', content: '# Hello, world!' }],
-    feature: [{ filepath: 'main.js', content: "console.log('It\\'s work');" }],
-    test: [{ filepath: 'test.test.js', content: "console.log('Test!');" }]
-  };
-
-  before(() =>
-    Promise.resolve()
-      .then(() => cleanMockRepo(cwd))
-      .then(() => createMockRepo(cwd, tree))
-  );
-
   it('ls-tree -r -t <object> <path>', () => {
     const object = 'test';
     const filepath = '.';
+    const expected = tree[object][0].filepath;
 
     return git(`ls-tree -r -t ${object} ${filepath}`, { cwd }).then(data => {
-      expect(data).to.be.a('string');
-      expect(data.includes(tree['master'][0].filepath)).to.equal(true);
-      expect(data.includes(tree[object][0].filepath)).to.equal(true);
+      expect(data).to.contain(expected);
     });
   });
 
@@ -37,7 +29,7 @@ describe('git', () => {
     const expected = Object.keys(tree)
       .sort()
       .reduce((str, branch) => {
-        str += `${branch === 'master' ? '*' : ' '} ${branch}\n`;
+        str += `${branch === defaultBranch ? '*' : ' '} ${branch}\n`;
 
         return str;
       }, '');
