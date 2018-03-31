@@ -3,20 +3,20 @@
   "parser": "postcss-scss",
   "plugins": {
     "postcss-import": {
-      "path": "./src"
+      "path": "./client/src"
     },
     "postcss-mixins": {},
     "postcss-simple-vars": {},
     "postcss-nested": {},
     "postcss-svg": {
       "paths": [
-        "./src/static/images"
+        "./client/src/static/images"
       ]
     },
     "postcss-assets": {
-      "basePath": "./src/static",
+      "basePath": "./client/src/static",
       "loadPaths": [
-        "./src/static"
+        "./client/src/static"
       ],
       "cachebuster": true,
       "cache": true

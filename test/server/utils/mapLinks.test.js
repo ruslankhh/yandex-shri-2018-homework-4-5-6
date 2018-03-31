@@ -1,7 +1,7 @@
 const { describe, it } = require('mocha');
 const { expect } = require('chai');
 
-const mapLinks = require('./../../../server/helpers/mapLinks');
+const mapLinks = require('./../../../server/utils/mapLinks');
 
 describe('map links', () => {
   it('with good data', () => {

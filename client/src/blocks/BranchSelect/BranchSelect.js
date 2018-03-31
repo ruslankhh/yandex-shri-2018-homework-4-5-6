@@ -7,11 +7,9 @@ const BranchSelect = () => {
   if (branchSelect) {
     const oldObject = branchSelect.value;
 
-    branchSelect.addEventListener('change', (e) => {
+    branchSelect.addEventListener('change', e => {
       const newObject = branchSelect.value;
-      const pathnameArr = pathnameMatch
-        ? pathnameMatch.slice(1)
-        : ['tree', oldObject];
+      const pathnameArr = pathnameMatch ? pathnameMatch.slice(1) : ['tree', oldObject];
       const [type, object, filepath] = pathnameArr;
 
       if (newObject !== object) {

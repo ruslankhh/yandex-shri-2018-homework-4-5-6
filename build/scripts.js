@@ -9,7 +9,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 gulp.task('scripts', () => {
   return gulp
-    .src('src/scripts/main.js')
+    .src('client/src/scripts/main.js')
     .pipe(plumber())
     .pipe(webpack())
     .pipe(_if(isProduction, minify({ noSource: isProduction })))

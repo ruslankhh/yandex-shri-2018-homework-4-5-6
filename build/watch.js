@@ -3,16 +3,13 @@ import gulp from 'gulp';
 import runSequence from 'run-sequence';
 
 gulp.task('watch', () => {
-  // gulp.watch(['.posthtmlrc', 'src/**/*.post.html'], () => {
-  //   runSequence('markup', reload);
-  // });
-  gulp.watch(['.babelrc', 'src/**/*.js'], () => {
+  gulp.watch(['.babelrc', 'client/src/**/*.js'], () => {
     runSequence('scripts', reload);
   });
-  gulp.watch(['src/static/**/*'], () => {
+  gulp.watch(['client/src/static/**/*'], () => {
     runSequence('static', reload);
   });
-  gulp.watch(['.postcssrc', 'src/**/*.post.css'], () => {
+  gulp.watch(['.postcssrc', 'client/src/**/*.post.css'], () => {
     runSequence('styles', reload);
   });
 });

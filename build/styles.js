@@ -9,7 +9,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 gulp.task('styles', () => {
   return gulp
-    .src('src/styles/styles.post.css')
+    .src('client/src/styles/styles.post.css')
     .pipe(plumber())
     .pipe(postcss())
     .pipe(_if(isProduction, minify()))

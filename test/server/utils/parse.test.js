@@ -1,11 +1,11 @@
 const { describe, it } = require('mocha');
 const { expect } = require('chai');
 
-const git = require('./../../../server/helpers/git');
-const parseBranchList = require('./../../../server/helpers/parseBranchList');
-const parseCommitList = require('./../../../server/helpers/parseCommitList');
-const parseFileData = require('./../../../server/helpers/parseFileData');
-const parseFileList = require('./../../../server/helpers/parseFileList');
+const git = require('./../../../server/utils/git');
+const parseBranchList = require('./../../../server/utils/parseBranchList');
+const parseCommitList = require('./../../../server/utils/parseCommitList');
+const parseFileData = require('./../../../server/utils/parseFileData');
+const parseFileList = require('./../../../server/utils/parseFileList');
 const computeTreeMockRepo = require('./../../utils/computeTreeMockRepo');
 const config = require('./../../../config.json');
 const data = require('./../../data/data.json');

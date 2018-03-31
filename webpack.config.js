@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  entry: './src/scripts/main.js',
+  entry: './client/src/scripts/main.js',
   output: {
     path: path.resolve(__dirname, 'public/scripts'),
     filename: 'build.js'
@@ -11,7 +11,7 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        include: [path.resolve(__dirname, 'src')],
+        include: [path.resolve(__dirname, 'client/src')],
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader'

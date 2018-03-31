@@ -1,4 +1,4 @@
-const parseURL = (url) => {
+const parseURL = url => {
   const { pathname } = url;
   const pathnameMatch = pathname
     ? pathname.match(/^\/([\w-]+)\/?([\w-]+)?\/?(.*?)?$/)

@@ -2,7 +2,7 @@ const { mkdir, writeFile } = require('fs');
 const path = require('path');
 const { promisify } = require('util');
 
-const git = require('./../../server/helpers/git');
+const git = require('./../../server/utils/git');
 
 const mkdirAsync = promisify(mkdir);
 const writeFileAsync = promisify(writeFile);

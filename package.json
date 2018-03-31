@@ -8,7 +8,7 @@
     "prestart": "npm run build && npm run clone-repo",
     "start": "node ./server/index.js",
     "dev": "gulp",
-    "lint": "eslint **/*.js && stylelint src/**/*.css",
+    "lint": "eslint **/*.js && stylelint client/src/**/*.css",
     "pretest": "npm run create-repo",
     "test": "mocha test/server/**/*.test.js",
     "prehermione": "npm run create-repo",
@@ -22,7 +22,7 @@
   },
   "lint-staged": {
     "*.js": ["eslint --fix", "git add"],
-    "src/**/*.css": ["stylelint src/**/*.css --fix", "git add"],
+    "*.css": ["stylelint --fix", "git add"],
     "*.json": ["prettier --write", "git add"]
   },
   "dependencies": {
