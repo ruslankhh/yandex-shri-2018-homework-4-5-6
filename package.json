@@ -24,7 +24,7 @@
     "*.js": ["eslint --fix", "git add"],
     "src/**/*.css": ["stylelint src/**/*.css --fix", "git add"],
     "*.json": ["prettier --write", "git add"],
-    "(server|test)/**/*.js": ["npm test"]
+    "{server,test}/**/*.js": ["npm test"]
   },
   "dependencies": {
     "body-parser": "^1.18.2",
