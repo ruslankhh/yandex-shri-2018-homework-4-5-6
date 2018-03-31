@@ -1,7 +1,9 @@
 #!/bin/bash
+
 export REPO=https://github.com/ruslankhh/yandex-shri-2018-homework-4-5-6
 export REPO_DIR=repo
 
+rm -rf ${REPO_DIR}
 git clone ${REPO} ${REPO_DIR}
 cd ${REPO_DIR}
 

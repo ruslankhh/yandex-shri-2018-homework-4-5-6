@@ -1,0 +1,38 @@
+{
+  "commits": [
+    {
+      "master": [
+        { "filepath": "README.md", "content": "# Hello, world!\n" },
+        { "filepath": ".gitignore", "content": "node_modules\n" }
+      ],
+      "feature": [
+        { "filepath": "main.js", "content": "console.log('It\\'s work');\n" }
+      ],
+      "test": [
+        { "filepath": "test.test.js", "content": "console.log('Test!');\n" }
+      ]
+    },
+    {
+      "master": [
+        {
+          "filepath": "package.json",
+          "content": "{\n  \"name\": \"test-repo\"\n}"
+        },
+        { "filepath": ".gitignore", "content": "node_modules\npublic\n" }
+      ],
+      "test": [
+        { "filepath": "test2.test.js", "content": "console.log('Test!');\n" }
+      ]
+    },
+    {
+      "master": [
+        { "filepath": "index.js", "content": "console.log('Run!');\n" }
+      ],
+      "test": [
+        { "filepath": "test.test.js", "content": "console.log('Test1!');\n" },
+        { "filepath": "test2.test.js", "content": "console.log('Test2!');\n" },
+        { "filepath": "test3.test.js", "content": "console.log('Test3!');\n" }
+      ]
+    }
+  ]
+}
