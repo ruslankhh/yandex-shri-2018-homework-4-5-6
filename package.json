@@ -21,9 +21,9 @@
     }
   },
   "lint-staged": {
-    "*.js": ["eslint --fix", "git add"],
-    "*.css": ["stylelint --fix", "git add"],
-    "*.json": ["prettier --write", "git add"]
+    "**/*.js": ["eslint --fix", "git add"],
+    "client/src/**/*.css": ["stylelint client/src/**/*.css --fix", "git add"],
+    "**/*.json": ["prettier --write", "git add"]
   },
   "dependencies": {
     "body-parser": "^1.18.2",
