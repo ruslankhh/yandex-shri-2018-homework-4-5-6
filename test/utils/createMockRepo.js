@@ -1,39 +1,71 @@
-const _ = require('lodash');
 const { mkdir, writeFile } = require('fs');
 const path = require('path');
 const { promisify } = require('util');
 
 const git = require('./../../server/helpers/git');
-const config = { ...require('./../../config.json'), ...require('./../data/data.json') };
 
 const mkdirAsync = promisify(mkdir);
 const writeFileAsync = promisify(writeFile);
+const wait = delay => new Promise(resolve => setTimeout(resolve, delay));
 
-const defaultBranch = config.defaultBranch || 'master';
-
-const createMockRepo = (cwd, tree, i = 0) => {
-  const branches = _.uniq([defaultBranch, ...Object.keys(tree)]);
+/*
+ * Создаёт git репозиторий на основании полученных данных.
+ * Такая цепочка промисов необходима для последовательного:
+ * - создания/переключения веток,
+ * - cоздания папок,
+ * - создания файлов внутри папок,
+ * - создания коммитов.
+ * Каждая новая ветка создаётся из первоначальной ветки.
+ * Задержка нужна, чтобы git создавал коммиты в правильной последовательности.
+ * В противном случае, мы бы получили непредсказуемый результат.
+ */
+const createMockRepo = (cwd, commits) => {
+  let initBranch;
+  let messageIndex = 0;
 
   return Promise.resolve()
     .then(() => mkdirAsync(cwd))
     .then(() => git('init', { cwd }))
     .then(() =>
-      branches.reduce((promise, branch) => {
-        promise = promise
-          .then(() => git(`checkout -b ${branch}`, { cwd }))
-          .then(() =>
-            Promise.all(
-              tree[branch].map(({ filepath, content }) =>
-                writeFileAsync(path.join(cwd, filepath), content)
-              )
-            )
-          )
-          .then(() => git(`add .`, { cwd }))
-          .then(() => git(`commit -m Message#${i}`, { cwd }))
-          .then(() => git(`checkout ${branches[0]}`, { cwd }));
-        i = i + 1;
+      commits.reduce((promise, commit) => {
+        const branch = Object.keys(commit)[0];
 
-        return promise;
+        if (!initBranch) {
+          initBranch = branch;
+        }
+
+        return promise.then(() =>
+          Promise.all([
+            wait(1000),
+            Promise.resolve()
+              .then(() =>
+                git('branch', { cwd }).then(data => {
+                  if (data.includes(`${branch}\n`)) {
+                    return git(`checkout ${branch}`, { cwd });
+                  } else {
+                    return git(`checkout -b ${branch}`, { cwd });
+                  }
+                })
+              )
+              .then(() =>
+                commit[branch].reduce((promise, file) => {
+                  return promise.then(() => {
+                    if (file.isDirectory) {
+                      return mkdirAsync(path.join(cwd, file.filepath));
+                    } else {
+                      return writeFileAsync(path.join(cwd, file.filepath), file.content);
+                    }
+                  });
+                }, Promise.resolve())
+              )
+              .then(() => git(`add .`, { cwd }))
+              .then(() => git(`commit -m Message#${messageIndex}`, { cwd }))
+              .then(() => git(`checkout ${initBranch}`, { cwd }))
+              .then(() => {
+                messageIndex += 1;
+              })
+          ])
+        );
       }, Promise.resolve())
     );
 };

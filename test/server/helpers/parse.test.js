@@ -7,12 +7,11 @@ const parseCommitList = require('./../../../server/helpers/parseCommitList');
 const parseFileData = require('./../../../server/helpers/parseFileData');
 const parseFileList = require('./../../../server/helpers/parseFileList');
 const computeTreeMockRepo = require('./../../utils/computeTreeMockRepo');
-const config = {
-  ...require('./../../../config.json'),
-  ...require('./../../data/data.json')
-};
+const config = require('./../../../config.json');
+const data = require('./../../data/data.json');
 
-const { repoDir: cwd, commits } = config;
+const { repoDir: cwd } = config;
+const { commits } = data;
 const defaultBranch = config.defaultBranch || 'master';
 const tree = computeTreeMockRepo(commits, defaultBranch);
 

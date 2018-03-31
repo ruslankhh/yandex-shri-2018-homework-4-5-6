@@ -1,9 +1,10 @@
 const _ = require('lodash');
 const { expect } = require('chai');
 
-const config = { ...require('./../../config.json'), ...require('./../data/data.json') };
+const config = require('./../../config.json');
+const data = require('./../data/data.json');
 
-const { commits } = config;
+const { commits } = data;
 const defaultBranch = config.defaultBranch || 'master';
 
 describe('default branch', () => {

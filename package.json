@@ -17,14 +17,13 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged && npm test"
     }
   },
   "lint-staged": {
     "*.js": ["eslint --fix", "git add"],
     "src/**/*.css": ["stylelint src/**/*.css --fix", "git add"],
-    "*.json": ["prettier --write", "git add"],
-    "{server,test}/**/*.js": ["npm test"]
+    "*.json": ["prettier --write", "git add"]
   },
   "dependencies": {
     "body-parser": "^1.18.2",
