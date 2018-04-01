@@ -3,7 +3,7 @@ const _ = require('lodash');
 /*
  * Подсчитывает результирующее состояние дерева со всеми ветками и файлами.
  */
-const computeTreeMockRepo = (commits, defaultBranch) => {
+const computeMockRepo = (commits, defaultBranch) => {
   const tree = {};
   let initBranch;
 
@@ -27,4 +27,4 @@ const computeTreeMockRepo = (commits, defaultBranch) => {
   return tree;
 };
 
-module.exports = computeTreeMockRepo;
+module.exports = computeMockRepo;

@@ -6,14 +6,14 @@ const parseBranchList = require('./../../../server/utils/parseBranchList');
 const parseCommitList = require('./../../../server/utils/parseCommitList');
 const parseFileData = require('./../../../server/utils/parseFileData');
 const parseFileList = require('./../../../server/utils/parseFileList');
-const computeTreeMockRepo = require('./../../utils/computeTreeMockRepo');
+const computeMockRepo = require('./../../utils/computeMockRepo');
 const config = require('./../../../config.json');
 const data = require('./../../data/data.json');
 
 const { repoDir: cwd } = config;
 const { commits } = data;
 const defaultBranch = config.defaultBranch || 'master';
-const tree = computeTreeMockRepo(commits, defaultBranch);
+const tree = computeMockRepo(commits, defaultBranch);
 
 describe('parse', () => {
   it('branch list', () => {

@@ -4,14 +4,14 @@ const path = require('path');
 
 const git = require('./../../../server/utils/git');
 const parseFileList = require('./../../../server/utils/parseFileList');
-const computeTreeMockRepo = require('./../../utils/computeTreeMockRepo');
+const computeMockRepo = require('./../../utils/computeMockRepo');
 const config = require('./../../../config.json');
 const data = require('./../../data/data.json');
 
 const { repoDir: cwd } = config;
 const { commits } = data;
 const defaultBranch = config.defaultBranch || 'master';
-const tree = computeTreeMockRepo(commits, defaultBranch);
+const tree = computeMockRepo(commits, defaultBranch);
 
 describe('git', () => {
   it('ls-tree -r -t <object> <path>', () => {

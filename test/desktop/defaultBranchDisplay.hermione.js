@@ -1,13 +1,14 @@
-const _ = require('lodash');
 const { expect } = require('chai');
 
+const computeMockRepo = require('./../utils/computeMockRepo');
 const config = require('./../../config.json');
 const data = require('./../data/data.json');
 
 const { commits } = data;
 const defaultBranch = config.defaultBranch || 'master';
+const tree = computeMockRepo(commits, defaultBranch);
 
-describe('default branch', () => {
+describe('default branch display', () => {
   // eslint-disable-next-line
   it('из списка всех веток отображается ветка по умолчанию', function () {
     const expected = defaultBranch;
@@ -37,12 +38,8 @@ describe('default branch', () => {
 
   // eslint-disable-next-line
   it('для ветки отображается корректный список файлов и папок', function () {
-    const expected = _.uniq(
-      _.flatten(
-        commits
-          .filter(commit => !!commit[defaultBranch])
-          .map(commit => commit[defaultBranch].map(file => file.filepath))
-      )
+    const expected = tree[defaultBranch].filter(
+      file => file.filepath.split('/').length === 1
     ).length;
 
     return this.browser
