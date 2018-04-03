@@ -19,7 +19,7 @@ router.get(/^\/(([\w-]+)\/?(.*?)?$)?/, (req, res, next) => {
   const cwd = config.repoDir;
 
   Promise.all([
-    git(`ls-tree -r -t ${object.replace('--', '/')} ${filepath}`, { cwd }),
+    git(`ls-tree -r ${object.replace('--', '/')} ${filepath}`, { cwd }),
     git('branch', { cwd }),
     git('rev-parse --show-toplevel', { cwd })
   ])
