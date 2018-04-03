@@ -1,9 +1,9 @@
 const _ = require('lodash');
 const path = require('path');
 const express = require('express');
-const git = require('./../helpers/git');
-const parseFileList = require('./../helpers/parseFileList');
-const parseBranchList = require('./../helpers/parseBranchList');
+const git = require('./../utils/git');
+const parseFileList = require('./../utils/parseFileList');
+const parseBranchList = require('./../utils/parseBranchList');
 const config = { ...require('./../../config.json'), ...require('./../data/data.json') };
 
 const router = express.Router();

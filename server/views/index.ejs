@@ -1,0 +1,11 @@
+<% include ./partials/header %>
+  <ul>
+    <% tree.children.forEach(file => { %>
+      <li class="file-item">
+        <a href="/<%= `${file.type}/${object}/${file.filepath}` %>">
+          <%= file.base %>
+        </a>
+      </li>
+    <% }); %>
+  </ul>
+<% include ./partials/footer %>

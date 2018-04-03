@@ -33,6 +33,7 @@ bower_components
 build/Release
 public
 repo
+reports
 test_repo
 
 # Dependency directories
