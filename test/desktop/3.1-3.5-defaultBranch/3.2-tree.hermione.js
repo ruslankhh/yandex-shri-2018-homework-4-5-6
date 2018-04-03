@@ -1,9 +1,9 @@
 const path = require('path');
 const { expect } = require('chai');
 
-const computeMockRepo = require('./../utils/computeMockRepo');
-const config = require('./../../config.json');
-const data = require('./../data/data.json');
+const computeMockRepo = require('./../../utils/computeMockRepo');
+const config = require('./../../../config.json');
+const data = require('./../../data/data.json');
 
 const { commits } = data;
 const defaultBranch = config.defaultBranch || 'master';
@@ -24,13 +24,13 @@ it('3.2. Работа с деревом файлов в ветке по умол
 
   return this.browser
     .url('/')
-    .then(() => this.browser.element('.content').click(`.file-item a[href="${dirPath}"]`))
+    .then(() => this.browser.click(`.file-item a[href="${dirPath}"]`))
     .then(() => this.browser.elements('.file-item', false))
     .then(data => {
-      // Ссылка на родительский коталог не учитываем
+      // Ссылку на родительский коталог не учитываем
       expect(data.value.length - 1).to.equal(expectedDirLength);
     })
-    .then(() => this.browser.element('.content').click(`.file-item:first-child a`))
+    .then(() => this.browser.click(`.file-item:first-child a`))
     .then(() => this.browser.elements('.file-item', false))
     .then(data => {
       expect(data.value.length).to.equal(expectedParentDirLength);
