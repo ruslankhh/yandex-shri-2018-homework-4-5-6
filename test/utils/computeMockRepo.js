@@ -16,9 +16,11 @@ const computeMockRepo = (commits, defaultBranch) => {
         tree[branch] = commit[branch];
       } else {
         if (!tree[branch]) {
-          tree[branch] = _.uniqBy([...tree[initBranch], ...commit[branch]], 'filepath');
+          // Здесь такой порядок элементов в массиве, чтобы после uniqBy остались
+          // их последние версии
+          tree[branch] = _.uniqBy([...commit[branch], ...tree[initBranch]], 'filepath');
         } else {
-          tree[branch] = _.uniqBy([...tree[branch], ...commit[branch]], 'filepath');
+          tree[branch] = _.uniqBy([...commit[branch], ...tree[branch]], 'filepath');
         }
       }
     });
