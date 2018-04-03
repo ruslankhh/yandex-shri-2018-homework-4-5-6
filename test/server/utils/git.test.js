@@ -49,9 +49,16 @@ describe('git', () => {
   it('log <object> -- <path>', () => {
     const object = 'test';
     const { filepath } = tree[object][0];
+    const lastNumber = commits.reduce((prev, commit, i) => {
+      if (commit[object]) {
+        return i;
+      } else {
+        return prev;
+      }
+    }, null);
 
     return git(`log ${object} -- ${filepath}`, { cwd }).then(data => {
-      expect(data).to.include(`Message#0`);
+      expect(data).to.include(`Message#${lastNumber}`);
     });
   });
 

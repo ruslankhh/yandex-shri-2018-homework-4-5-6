@@ -59,7 +59,7 @@ describe('parse', () => {
     const object = 'test';
     const { filepath } = tree[object][0];
 
-    return git(`ls-tree -r -t ${object} ${filepath}`, { cwd }).then(data => {
+    return git(`ls-tree -r ${object} ${filepath}`, { cwd }).then(data => {
       const file = parseFileData(data);
 
       expect(file).to.be.a('object');
